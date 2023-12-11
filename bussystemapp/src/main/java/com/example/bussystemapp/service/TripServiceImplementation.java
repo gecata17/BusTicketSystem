@@ -2,6 +2,7 @@ package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.model.Trip;
 import com.example.bussystemapp.repository.TripRepository;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,29 @@ public class TripServiceImplementation implements TripService{
 
     private TripRepository tripRepository;
 
+    //TO DO
     @Override
     public Trip createTrip(Trip trip) {
         return null;
     }
 
+    //TO DO
     @Override
     public Trip updateTrip(Trip trip) {
         return null;
     }
 
     @Override
+    public Trip findByDescription(String description) {
+        return tripRepository.findById(description).orElseThrow(EntityExistsException::new);
+    }
+
+    //TO DO
+    @Override
     public List<Trip> getAllOrganisedTripsByTown(String title) {
         return null;
     }
+
 
     @Override
     public void deleteByDescription(String description) {

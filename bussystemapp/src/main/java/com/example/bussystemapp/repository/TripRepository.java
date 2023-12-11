@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripRepository extends JpaRepository<Trip,String> {
 
+    Trip findByDescription(String description);
     void deleteTripByDescription(String description);
+
 }

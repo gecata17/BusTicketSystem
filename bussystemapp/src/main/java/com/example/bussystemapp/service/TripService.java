@@ -15,6 +15,8 @@ public interface TripService {
 
     Trip updateTrip(Trip trip);
 
+    Trip findByDescription(String description);
+
     List<Trip> getAllOrganisedTripsByTown(String title);
     void deleteByDescription(String description);
 

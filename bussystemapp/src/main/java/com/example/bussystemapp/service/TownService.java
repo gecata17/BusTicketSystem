@@ -11,7 +11,7 @@ public interface TownService {
     //to create dtos
     Town createTown(Town town);
 
-    Town updateTown(Town town);
+    Town findByTitle(String title);
 
     List<Town> getAllTowns();
 

@@ -13,8 +13,8 @@ public interface TicketService {
       Ticket createTicket(Ticket ticket);
       Ticket updateTicket(Ticket ticket, Long id);
 
-      //List<Ticket> findAllTicketsByUser(String username);
+      List<Ticket> findAllTicketsByUser(String username);
 
-     // List<Ticket> findAllTicketsByRoute(String description);
+      List<Ticket> findAllTicketsByRoute(String description);
       void deleteById(Long id);
 }

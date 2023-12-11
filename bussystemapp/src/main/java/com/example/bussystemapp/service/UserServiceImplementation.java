@@ -1,5 +1,6 @@
 package com.example.bussystemapp.service;
 
+import com.example.bussystemapp.config.UserDetailsImplementation;
 import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import jakarta.persistence.EntityExistsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     private final UserRepository userRepository;
 
 
+    //TO DO
     @Override
     public void createUser(User user){
        User newUser = new User();
@@ -36,13 +39,15 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findById(username).orElseThrow(EntityExistsException::new);
 
-       return null; // return new UserDetailsImplementation(user);
+        return new UserDetailsImplementation(user);
     }
 }
