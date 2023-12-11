@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TownRepository extends JpaRepository<Town,String> {
 
+    Town findByTitle(String title);
     void deleteTownByTitle(String title);
 }
