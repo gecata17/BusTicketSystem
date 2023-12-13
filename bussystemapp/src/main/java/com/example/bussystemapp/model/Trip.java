@@ -38,6 +38,6 @@ public class Trip {
     private LocalDateTime dateOfArrival;
 
     ////???????????????????????????
-    //    @OneToMany(mappedBy = "route",cascade = CascadeType.ALL)
+    //    @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
     //    private Set<Ticket> assignedTickets = new HashSet<>();
 }

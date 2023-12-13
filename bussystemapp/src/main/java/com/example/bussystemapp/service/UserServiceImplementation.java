@@ -20,10 +20,10 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     private final UserRepository userRepository;
 
-   // private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
 
-    //TO DO
+
     @Override
     public void createUser(User user){
 
@@ -37,7 +37,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
        User newUser = new User();
        newUser.setUsername(user.getUsername());
        newUser.setEmail(user.getEmail());
-       //newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+       newUser.setPassword(passwordEncoder.encode(user.getPassword()));
        userRepository.save(newUser);
 
     }
