@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +20,25 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     private final UserRepository userRepository;
 
+   // private final PasswordEncoder passwordEncoder;
+
 
     //TO DO
     @Override
     public void createUser(User user){
+
+        if(userRepository.existsById(user.getUsername())){
+            throw new IllegalArgumentException("Username already in use");
+        }
+        if(userRepository.findByEmail(user.getEmail()) != null){
+            throw new IllegalArgumentException("Email already in use");
+        }
+
        User newUser = new User();
+       newUser.setUsername(user.getUsername());
+       newUser.setEmail(user.getEmail());
+       //newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+       userRepository.save(newUser);
 
     }
 
