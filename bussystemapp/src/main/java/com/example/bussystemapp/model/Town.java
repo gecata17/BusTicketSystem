@@ -28,7 +28,11 @@ public class Town {
 
 
     @OneToMany(mappedBy = "startTown",cascade = CascadeType.ALL)
-    private Set<Trip> organizedTrips= new HashSet<>();
+    private Set<Trip> startTownTrip= new HashSet<>();
+
+    @OneToMany(mappedBy = "endTown",cascade = CascadeType.ALL)
+    private Set<Trip> endTownTrip = new HashSet<>();
+
 
     public Town(String title) {
         this.title = title;

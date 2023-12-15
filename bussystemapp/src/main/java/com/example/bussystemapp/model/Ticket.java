@@ -48,4 +48,12 @@ public class Ticket {
     @JoinColumn(name = "Route",referencedColumnName = "desciption")
     private Trip trip;
 
+
+    public Ticket(Long id, String title, Status status,double price) {
+        this.id = id;
+        this.title = title;
+        this.status = status;
+        this.price = price;
+    }
+
 }

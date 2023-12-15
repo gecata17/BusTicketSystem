@@ -6,6 +6,8 @@ import lombok.*;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,13 +23,21 @@ public class User  {
     String username;
 
     @JsonIgnore
-    @Column(name = "Password",nullable = false)
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "Email",nullable = false)
+    @Column(name = "email",nullable = false)
     private String email;
 
-   //// ???????????
-    //@OneToMany(mappedBy = "assignedTo",cascade = Cascade.ALL)
-    //private Set<Tickets> tickets = new HashSet<>();
+
+    @OneToMany(mappedBy = "assignedTo",cascade = CascadeType.ALL)
+    private Set<Ticket> tickets = new HashSet<>();
+
+    public User(String username, String email,String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+
+    }
+
 }

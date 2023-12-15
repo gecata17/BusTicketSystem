@@ -1,5 +1,6 @@
 package com.example.bussystemapp.service;
 
+import com.example.bussystemapp.dtos.TownDto;
 import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.repository.TownRepository;
 import jakarta.persistence.EntityExistsException;
@@ -35,6 +36,16 @@ public class TownServiceImplementation implements TownService {
 
         townRepository.findAll().forEach(towns::add);
         return towns;
+    }
+
+    @Override
+    public TownDto entityToDto(Town town) {
+        return new TownDto(town.getTitle());
+    }
+
+    @Override
+    public Town dtoToEntity(TownDto townDto) {
+        return new Town(townDto.getTitle());
     }
 
     @Override

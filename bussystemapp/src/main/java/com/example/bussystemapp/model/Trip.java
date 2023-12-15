@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -37,7 +39,16 @@ public class Trip {
     @Column(name = "DateOfArrival", nullable = false)
     private LocalDateTime dateOfArrival;
 
-    ////???????????????????????????
-    //    @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
-    //    private Set<Ticket> assignedTickets = new HashSet<>();
+
+    @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
+    private Set<Ticket> assignedTickets = new HashSet<>();
+
+    public Trip(String description,Long seats, LocalDateTime dateOfDeparture, LocalDateTime dateOfArrival) {
+        this.description=description;
+        this.seats = seats;
+        this.dateOfDeparture = dateOfDeparture;
+        this.dateOfArrival = dateOfArrival;
+    }
+
+
 }

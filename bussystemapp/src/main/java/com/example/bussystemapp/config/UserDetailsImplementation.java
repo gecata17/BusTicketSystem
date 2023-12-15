@@ -38,12 +38,17 @@ public class UserDetailsImplementation implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
+    }
+
+
+    public String getEmail(){
+        return email;
     }
 
     @Override
