@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -27,11 +28,13 @@ public class AuthenticationConfig {
         return daoAuthenticationProvider;
     }
 
-    //TO DO
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfig config) throws Exception{
 
-        return null;
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+
+
+        return config.getAuthenticationManager();
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.bussystemapp.service;
 
+import com.example.bussystemapp.dtos.TicketDto;
 import com.example.bussystemapp.model.Ticket;
 import com.example.bussystemapp.model.Trip;
 import com.example.bussystemapp.model.User;
@@ -65,6 +66,16 @@ public class TicketServiceImplementation implements TicketService {
     public List<Ticket> findAllTicketsByRoute(String description) {
         Trip trip = tripRepository.findByDescription(description);
         return ticketRepository.findAllByTrip(trip);
+    }
+
+    @Override
+    public TicketDto entityToDto(Ticket ticket) {
+        return new TicketDto(ticket.getId(),ticket.getTitle(),ticket.getStatus(),ticket.getPrice());
+    }
+
+    @Override
+    public Ticket dtoToEntity(Ticket ticketDto) {
+        return new Ticket(ticketDto.getId(), ticketDto.getTitle(), ticketDto.getStatus(),ticketDto.getPrice());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.bussystemapp.service;
 
+import com.example.bussystemapp.dtos.TripDto;
 import com.example.bussystemapp.model.Trip;
 import com.example.bussystemapp.repository.TripRepository;
 import jakarta.persistence.EntityExistsException;
@@ -29,6 +30,16 @@ public class TripServiceImplementation implements TripService{
     @Override
     public Trip findByDescription(String description) {
         return tripRepository.findById(description).orElseThrow(EntityExistsException::new);
+    }
+
+    @Override
+    public TripDto entityToDto(Trip trip) {
+        return new TripDto(trip.getDescription(),trip.getSeats(),trip.getDateOfDeparture(),trip.getDateOfArrival());
+    }
+
+    @Override
+    public Trip dtoToEntity(TripDto tripDto) {
+        return new Trip(tripDto.getDescription(),tripDto.getSeats(),tripDto.getDateOfDeparture(),tripDto.getDateOfArrival());
     }
 
     //TO DO

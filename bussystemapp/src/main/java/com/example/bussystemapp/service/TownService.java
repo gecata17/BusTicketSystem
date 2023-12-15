@@ -1,5 +1,6 @@
 package com.example.bussystemapp.service;
 
+import com.example.bussystemapp.dtos.TownDto;
 import com.example.bussystemapp.model.Town;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ public interface TownService {
     Town findByTitle(String title);
 
     List<Town> getAllTowns();
+
+    TownDto entityToDto(Town town);
+
+    Town dtoToEntity(TownDto townDto);
 
     void deleteByTitle(String title);
 
