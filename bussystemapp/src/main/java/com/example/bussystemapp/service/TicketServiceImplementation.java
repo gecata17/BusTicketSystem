@@ -74,7 +74,7 @@ public class TicketServiceImplementation implements TicketService {
     }
 
     @Override
-    public Ticket dtoToEntity(Ticket ticketDto) {
+    public Ticket dtoToEntity(TicketDto ticketDto) {
         return new Ticket(ticketDto.getId(), ticketDto.getTitle(), ticketDto.getStatus(),ticketDto.getPrice());
     }
 

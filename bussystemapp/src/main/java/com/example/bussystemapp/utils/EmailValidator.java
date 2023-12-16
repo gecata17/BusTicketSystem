@@ -1,8 +1,11 @@
 package com.example.bussystemapp.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@UtilityClass
 public class EmailValidator {
 
     public static final Pattern  VALID_EMAIL_ADDRESS_REGEX =
