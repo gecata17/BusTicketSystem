@@ -20,7 +20,7 @@ public interface TicketService {
 
       TicketDto entityToDto(Ticket ticket);
 
-      Ticket dtoToEntity(Ticket ticketDto);
+      Ticket dtoToEntity(TicketDto ticketDto);
 
       void deleteById(Long id);
 }
