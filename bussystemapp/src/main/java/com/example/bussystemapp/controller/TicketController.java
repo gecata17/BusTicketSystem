@@ -29,6 +29,7 @@ public class TicketController {
 
     @PostMapping()
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto){
+        System.out.println(ticketDto.getPrice());
         try{
             return new ResponseEntity<>(ticketService.entityToDto(ticketService.createTicket(ticketService.dtoToEntity(ticketDto))), HttpStatus.CREATED);
         } catch (EntityExistsException ex){
@@ -38,7 +39,6 @@ public class TicketController {
     }
 
 
-    //doesn't work
     @PutMapping("/update/{id}")
     public ResponseEntity<TicketDto> updateTicket(@PathVariable("id") Long id, @RequestBody TicketDto ticketDto){
         try{
@@ -48,8 +48,7 @@ public class TicketController {
         }
     }
 
-    //doesn't work
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTicket(@PathVariable("id") Long id){
         ticketService.deleteById(id);
     }

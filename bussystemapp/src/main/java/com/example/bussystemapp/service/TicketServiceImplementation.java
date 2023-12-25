@@ -24,32 +24,33 @@ public class TicketServiceImplementation implements TicketService {
     private final TripRepository tripRepository;
 
 
-    //TO DO
+
     @Override
     public Ticket createTicket(Ticket ticket) {
-
         if (ticket.getAssignedTo() != null) {
             if (userRepository.findByUsername(ticket.getAssignedTo().getUsername()) == null) {
                 throw new IllegalArgumentException("Invalid username");
             }
         }
 
-          Ticket newTicket = new Ticket();
-          newTicket.setId(ticket.getId());
-          newTicket.setTitle(ticket.getTitle());
-          newTicket.setStatus(Status.valueOf("AVAILABLE"));
-          newTicket.setTrip(ticket.getTrip());
-          newTicket.setAssignedTo(ticket.getAssignedTo());
-          return ticketRepository.save(newTicket);
+        Ticket newTicket = new Ticket();
+        newTicket.setId(ticket.getId());
+        newTicket.setTitle(ticket.getTitle());
+        newTicket.setStatus(ticket.getStatus());
+        newTicket.setPrice(ticket.getPrice());
+        newTicket.setTrip(ticket.getTrip());
+        newTicket.setAssignedTo(ticket.getAssignedTo());
+        return ticketRepository.save(newTicket);
     }
 
-    //TO DO
+
     @Override
     public Ticket updateTicket(Ticket ticket, Long id) {
         Ticket foundTicket  = ticketRepository.findById(id).orElseThrow(EntityExistsException::new);
         foundTicket.setTitle(ticket.getTitle());
         foundTicket.setStatus(ticket.getStatus());
         foundTicket.setTrip(ticket.getTrip());
+        foundTicket.setPrice(ticket.getPrice());
         foundTicket.setAssignedTo(ticket.getAssignedTo());
 
         return ticketRepository.save(foundTicket);
@@ -70,16 +71,17 @@ public class TicketServiceImplementation implements TicketService {
 
     @Override
     public TicketDto entityToDto(Ticket ticket) {
-        return new TicketDto(ticket.getId(),ticket.getTitle(),ticket.getStatus(),ticket.getPrice());
+        return new TicketDto(ticket.getTitle(),ticket.getStatus(),ticket.getPrice());
     }
 
     @Override
     public Ticket dtoToEntity(TicketDto ticketDto) {
-        return new Ticket(ticketDto.getId(), ticketDto.getTitle(), ticketDto.getStatus(),ticketDto.getPrice());
+        return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(),ticketDto.getPrice());
     }
 
     @Override
     public void deleteById(Long id) {
         ticketRepository.deleteById(id);
+
     }
 }

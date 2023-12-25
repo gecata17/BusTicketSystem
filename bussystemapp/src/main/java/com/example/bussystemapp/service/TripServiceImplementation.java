@@ -13,18 +13,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TripServiceImplementation implements TripService{
 
-    private TripRepository tripRepository;
+    private final TripRepository tripRepository;
 
-    //TO DO
+
     @Override
     public Trip createTrip(Trip trip) {
-        return null;
+
+        Trip newTrip = new Trip();
+
+        newTrip.setDescription(trip.getDescription());
+        newTrip.setStartTown(trip.getStartTown());
+        newTrip.setEndTown(trip.getEndTown());
+        newTrip.setDateOfDeparture(trip.getDateOfDeparture());
+        newTrip.setDateOfArrival(trip.getDateOfArrival());
+        newTrip.setAssignedTickets(trip.getAssignedTickets());
+
+        return tripRepository.save(newTrip);
     }
 
-    //TO DO
     @Override
-    public Trip updateTrip(Trip trip) {
-        return null;
+    public Trip updateTrip(Trip trip , String description) {
+        Trip foundTrip = tripRepository.findByDescription(description);
+
+        foundTrip.setDescription(trip.getDescription());
+        foundTrip.setStartTown(trip.getStartTown());
+        foundTrip.setEndTown(trip.getEndTown());
+        foundTrip.setDateOfDeparture(trip.getDateOfDeparture());
+        foundTrip.setDateOfArrival(trip.getDateOfArrival());
+        foundTrip.setAssignedTickets(trip.getAssignedTickets());
+
+        return tripRepository.save(foundTrip);
     }
 
     @Override

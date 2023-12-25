@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "User")
 public class User  {
 
     @Id

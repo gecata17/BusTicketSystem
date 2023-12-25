@@ -10,7 +10,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Ticket")
 public class Ticket {
 
 
@@ -49,8 +48,7 @@ public class Ticket {
     private Trip trip;
 
 
-    public Ticket(Long id, String title, Status status,double price) {
-        this.id = id;
+    public Ticket(String title, Status status,double price) {
         this.title = title;
         this.status = status;
         this.price = price;
