@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TicketDto {
-    private Long id;
-
     private String title;
 
     private Status status;

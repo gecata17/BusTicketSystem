@@ -14,12 +14,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TownServiceImplementation implements TownService {
 
-    private TownRepository townRepository;
+    private final TownRepository townRepository;
 
-    //TO DO
+
     @Override
     public Town createTown(Town town) {
-        return null;
+
+
+
+        Town newTown = new Town();
+        newTown.setTitle(town.getTitle());
+        newTown.setLongitude(town.getLongitude());
+        newTown.setLatitude(town.getLatitude());
+        newTown.setStartTownTrip(town.getStartTownTrip());
+        newTown.setEndTownTrip(town.getEndTownTrip());
+        return townRepository.save(newTown);
+
     }
 
 
@@ -27,6 +37,11 @@ public class TownServiceImplementation implements TownService {
     @Override
     public Town findByTitle(String title) {
         return townRepository.findById(title).orElseThrow(EntityExistsException::new);
+    }
+
+    @Override
+    public Town updateTown(Town town, String title) {
+        return null;
     }
 
 
@@ -52,5 +67,7 @@ public class TownServiceImplementation implements TownService {
     public void deleteByTitle(String title) {
 
         townRepository.deleteTownByTitle(title);
+
+
     }
 }

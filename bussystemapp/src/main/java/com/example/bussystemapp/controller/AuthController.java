@@ -30,11 +30,8 @@ public class AuthController {
     //token to be added
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest){
-
+    public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest) {
         User newUser = new User(signUpRequest.getUsername() ,signUpRequest.getEmail(),signUpRequest.getPassword());
-
-
         try{
             userService.createUser(newUser);
         }catch (IllegalArgumentException ex){
@@ -45,11 +42,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
-
-
         Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
-
-
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         //token object

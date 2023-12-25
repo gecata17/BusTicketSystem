@@ -62,7 +62,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findById(username).orElseThrow(EntityExistsException::new);
-
+        System.out.println(user.toString());
         return new UserDetailsImplementation(user);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.model.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
