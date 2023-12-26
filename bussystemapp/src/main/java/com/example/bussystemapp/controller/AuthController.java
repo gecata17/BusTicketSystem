@@ -6,6 +6,7 @@ import com.example.bussystemapp.dtos.LoginResponse;
 import com.example.bussystemapp.dtos.SignUpRequest;
 import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.service.UserService;
+import com.example.bussystemapp.utils.JWTTokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,15 +28,16 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authManager;
 
-    //token to be added
+    @Autowired
+    private JWTTokenGenerator jwtTokenGenerator;
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         User newUser = new User(signUpRequest.getUsername() ,signUpRequest.getEmail(),signUpRequest.getPassword());
         try{
             userService.createUser(newUser);
         }catch (IllegalArgumentException ex){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
         return ResponseEntity.ok().body(newUser);
     }
@@ -45,11 +47,8 @@ public class AuthController {
         Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        //token object
+        String jwt = jwtTokenGenerator.generateToken(auth);
         UserDetailsImplementation userDetails= (UserDetailsImplementation) auth.getPrincipal();
-
-
-
-        return ResponseEntity.ok(new LoginResponse(userDetails.getPassword(),userDetails.getUsername(), userDetails.getEmail()));
+        return ResponseEntity.ok(new LoginResponse(jwt, userDetails.getUsername(), userDetails.getEmail()));
     }
 }

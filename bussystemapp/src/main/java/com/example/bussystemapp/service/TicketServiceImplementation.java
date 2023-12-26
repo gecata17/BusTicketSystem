@@ -7,7 +7,6 @@ import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.repository.TicketRepository;
 import com.example.bussystemapp.repository.TripRepository;
 import com.example.bussystemapp.repository.UserRepository;
-import com.example.bussystemapp.utils.Status;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

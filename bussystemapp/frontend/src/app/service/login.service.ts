@@ -20,7 +20,6 @@ export class LoginService {
 
     const currentHeader = new HttpHeaders().set('Content-Type', 'application/json');
     const body = { username: username, password: password };
-
     return this.http.post<LoginUser>(`${this.apiServerUrl}/private/api/auth/login`, body, { headers: currentHeader });
   }
 }

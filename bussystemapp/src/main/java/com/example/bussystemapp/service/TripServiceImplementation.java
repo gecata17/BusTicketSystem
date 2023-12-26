@@ -1,19 +1,23 @@
 package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.dtos.TripDto;
+import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.model.Trip;
+import com.example.bussystemapp.repository.TownRepository;
 import com.example.bussystemapp.repository.TripRepository;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TripServiceImplementation implements TripService{
 
     private final TripRepository tripRepository;
+    private final TownRepository townRepository;
 
 
     @Override
@@ -63,6 +67,9 @@ public class TripServiceImplementation implements TripService{
     //TO DO
     @Override
     public List<Trip> getAllOrganisedTripsByTown(String title) {
+        Optional<Town> town = townRepository.findByTitle(title);
+       //return tripRepository.findAllByStartTownAndEndTown();
+
         return null;
     }
 

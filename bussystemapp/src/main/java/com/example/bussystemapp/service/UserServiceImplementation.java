@@ -54,9 +54,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add);
-        return users;
+        return new ArrayList<>(userRepository.findAll());
     }
 
     @Override

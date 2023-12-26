@@ -4,11 +4,13 @@ import com.example.bussystemapp.dtos.TownDto;
 import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.repository.TownRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,16 +43,26 @@ public class TownServiceImplementation implements TownService {
 
     @Override
     public Town updateTown(Town town, String title) {
-        return null;
+
+        Optional<Town> foundOptional = townRepository.findByTitle(title);
+
+        if(foundOptional.isPresent()){
+            Town found = foundOptional.get();
+            found.setTitle(town.getTitle());
+            found.setLongitude(town.getLongitude());
+            found.setLatitude(town.getLatitude());
+            found.setStartTownTrip(town.getStartTownTrip());
+            found.setEndTownTrip(town.getEndTownTrip());
+            return townRepository.save(found);
+        }
+        throw new EntityNotFoundException("Town with the following name :  " + title + " is not found ");
     }
 
 
     @Override
     public List<Town> getAllTowns() {
-        List<Town> towns = new ArrayList<>();
 
-        townRepository.findAll().forEach(towns::add);
-        return towns;
+        return new ArrayList<>(townRepository.findAll());
     }
 
     @Override
