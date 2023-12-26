@@ -31,9 +31,10 @@ public class TownController {
     }
 
 
+    //TO DO
     @PutMapping("/update")
     public ResponseEntity<TownDto> updateTown(@RequestBody TownDto townDto){
-
+        return null;
     }
 
     @GetMapping("/all")

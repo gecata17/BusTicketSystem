@@ -1,57 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/login.service';
+import { TokenStorageService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
-
-@Component({
-  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 
 
 export class LoginComponent implements OnInit {
-
-
-  hide = true;
-
-  form: any = {
-    username: null,
-    password: null
-  };
-
   isLoggedIn = false;
   success = false;
   errorMessage = "";
 
-  constructor(private loginService: LoginService) { }
-
-
+  constructor(private loginService: LoginService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = false;
   }
 
-
-  login() {
-
-    const loginData = { username: this.form.username, password: this.form.password };
-
-    this.loginService.login(loginData.username, loginData.password).subscribe({
-
+  login(username: any, password: any) {
+    this.loginService.login(username, password).subscribe({
       next: (response) => {
-
         if (response) {
+          console.log(response);
+          this.tokenStorage.saveUser(response.username);
+          this.tokenStorage.saveToken(response.token);
           this.isLoggedIn = true;
-
         }
       },
       error: (err) => {
-        alert(err.message);
+        this.errorMessage = "Invalid credentials";
       }
 
     })

@@ -13,12 +13,8 @@ export class SignupService {
 
   constructor(private http:HttpClient) { }
 
-
-
   public createUser(user: SignUpUser) : Observable<SignUpUser>{
-
     const currentHeader = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
-
     return this.http.post<SignUpUser>(`${this.apiServerUrl}/private/api/auth/signup`,user,currentHeader)
   }
 }

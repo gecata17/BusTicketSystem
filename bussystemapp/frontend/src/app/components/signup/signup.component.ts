@@ -9,43 +9,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
+  errorMessage = "";
+  signUpUser?: SignUpUser;
+  passwordsMatch = true;
 
+  constructor(private readonly signupService : SignupService, private router:Router){}
 
-    hide = true
-    hideConfirmation = true 
-    signUpUser?: SignUpUser
+  checkPasswordsMatch() : void{
+    const passwordInput = document.getElementById("password") as HTMLInputElement;
+    const confirmPasswordInput = document.getElementById("confirm-password") as HTMLInputElement;
+    const password=passwordInput.value;
+    const confirmPassword=confirmPasswordInput.value;
+    this.passwordsMatch=password==confirmPassword;
+  }
+  public signup(username: string, email: string, password: string){
 
-
-    constructor(private readonly signupService : SignupService, private router:Router){}
-
-    form:any = {
-       email:null,
-       username:null,
-       password:null,
-       confirm_password:null
-    };
-
-    passwordsMatch() : boolean{
-      return this.form.password === this.form.password;
-    }
-
-
-  public signup(){
-
-    if(!this.passwordsMatch()){
+    if(!this.passwordsMatch){
       return;
 
     }
-    const signUpData = {email:this.form.email, username:this.form.username,password:this.form.password,confirm_password:this.form.confirm_password};
+    const signUpData = {email:email, username:username, password:password};
     this.signupService.createUser(signUpData).subscribe({
       next: (response) => {
         if(response){
+          console.log("Signup");
           this.signUpUser=response;
           this.router.navigateByUrl("/login");
         }
       },
       error: (err) => {
-        alert(err.message);
+        if (err && err.error) {
+          this.errorMessage=err.error;
+        }
       }
     })
   }
