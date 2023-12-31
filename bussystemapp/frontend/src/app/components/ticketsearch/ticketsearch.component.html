@@ -1,1 +1,51 @@
-<p>ticketsearch works!</p>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Ticket Search</title>
+  <!-- Include Angular and Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Bus Ticket Search</h2>
+
+    <!-- Date Picker -->
+    <div class="form-group">
+      <label for="departureDate">Departure Date:</label>
+      <input type="date" ngModel departureDate = "dateOfDeparture" class="form-control" id="departureDate" placeholder="Select Departure Date">
+    </div>
+
+    <!-- Source and Destination Selection -->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="source">Source:</label>
+        <input type="text" ngModel source = "startTown" class="form-control" id="source" placeholder="Enter Source City">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="destination">Destination:</label>
+        <input type="text" ngModel destination = "endTown" class="form-control" id="destination" placeholder="Enter Destination City">
+      </div>
+    </div>
+
+    <!-- Search Button -->
+    <button class="btn btn-primary" (click)="searchTickets()">Search Tickets</button>
+  </div>
+
+  <!-- Include Angular and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Include Angular Scripts (Assuming you have Angular scripts) -->
+  <!-- Example: -->
+  <!-- <script src="path/to/angular.js"></script> -->
+  <!-- <script src="path/to/app.module.js"></script> -->
+  <!-- <script src="path/to/ticket-search.component.js"></script> -->
+</body>
+
+</html>

@@ -27,9 +27,15 @@ public class TicketController {
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(), HttpStatus.OK);
     }
 
+    @GetMapping("/{ticketinfo}")
+    public ResponseEntity<List<TicketDto>> getTicketsByRoute(@PathVariable("ticketinfo") String description){
+        List<Ticket> tickets =ticketService.findAllTicketsByRoute(description);
+
+        return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(),HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto){
-        System.out.println(ticketDto.getPrice());
         try{
             return new ResponseEntity<>(ticketService.entityToDto(ticketService.createTicket(ticketService.dtoToEntity(ticketDto))), HttpStatus.CREATED);
         } catch (EntityExistsException ex){

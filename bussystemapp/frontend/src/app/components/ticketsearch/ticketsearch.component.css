@@ -1,0 +1,52 @@
+/* ticket-search.component.css */
+
+/* Background and Text Colors */
+body {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+    color: #343a40; /* Dark Gray */
+  }
+  
+  .container {
+    background-color: #ffffff; /* White */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light Shadow */
+  }
+  
+  h2 {
+    color: #007bff; /* Blue */
+  }
+  
+  /* Form Styles */
+  .form-group label {
+    color: #495057; /* Dark Gray */
+  }
+  
+  .form-control {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    background-color: #007bff; /* Blue */
+    border-color: #007bff; /* Blue */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker Blue on Hover */
+    border-color: #0056b3; /* Darker Blue on Hover */
+  }
+  
+  /* Input Styles */
+  input[type="date"] {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+    color: #495057; /* Dark Gray */
+  }
+  
+  /* Responsive Styles (Optional) */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  }
+  

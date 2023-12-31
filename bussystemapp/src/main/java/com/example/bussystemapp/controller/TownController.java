@@ -2,7 +2,6 @@ package com.example.bussystemapp.controller;
 
 import com.example.bussystemapp.dtos.TownDto;
 import com.example.bussystemapp.model.Town;
-import com.example.bussystemapp.repository.TownRepository;
 import com.example.bussystemapp.service.TownService;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TownController {
 
-    private TownService townService;
+    private final TownService townService;
 
 
     @PostMapping()
@@ -31,16 +30,18 @@ public class TownController {
     }
 
 
-    //TO DO
-    @PutMapping("/update")
-    public ResponseEntity<TownDto> updateTown(@RequestBody TownDto townDto){
-        return null;
-    }
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Town>> getAllTowns() {
         return new ResponseEntity<>(townService.getAllTowns(),HttpStatus.OK);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTown(@PathVariable ("id") String title){
+
+        townService.deleteByTitle(title);
     }
 
 }
