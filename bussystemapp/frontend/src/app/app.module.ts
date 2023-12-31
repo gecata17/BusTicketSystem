@@ -9,7 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TicketsearchComponent } from './components/ticketsearch/ticketsearch.component';
 import { MyprofileComponent } from './components/myprofile/myprofile.component';
 import { BuyticketComponent } from './components/buyticket/buyticket.component';
-
+import { FormsModule } from '@angular/forms';
+import { DropListComponent } from './components/drop-list/drop-list.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,12 @@ import { BuyticketComponent } from './components/buyticket/buyticket.component';
     SignupComponent,
     TicketsearchComponent,
     MyprofileComponent,
-    BuyticketComponent
+    BuyticketComponent,
+    DropListComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule
   ],
