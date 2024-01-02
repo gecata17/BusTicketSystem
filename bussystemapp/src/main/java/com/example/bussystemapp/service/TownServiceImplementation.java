@@ -4,13 +4,12 @@ import com.example.bussystemapp.dtos.TownDto;
 import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.repository.TownRepository;
 import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ public class TownServiceImplementation implements TownService {
 
     @Override
     public Town createTown(Town town) {
-
 
 
         Town newTown = new Town();
@@ -35,27 +33,24 @@ public class TownServiceImplementation implements TownService {
     }
 
 
-
     @Override
     public Town findByTitle(String title) {
         return townRepository.findById(title).orElseThrow(EntityExistsException::new);
+
     }
 
     @Override
     public Town updateTown(Town town, String title) {
 
-        Optional<Town> foundOptional = townRepository.findByTitle(title);
+        Town foundTown = townRepository.findByTitle(title);
 
-        if(foundOptional.isPresent()){
-            Town found = foundOptional.get();
-            found.setTitle(town.getTitle());
-            found.setLongitude(town.getLongitude());
-            found.setLatitude(town.getLatitude());
-            found.setStartTownTrip(town.getStartTownTrip());
-            found.setEndTownTrip(town.getEndTownTrip());
-            return townRepository.save(found);
-        }
-        throw new EntityNotFoundException("Town with the following name :  " + title + " is not found ");
+        foundTown.setTitle(town.getTitle());
+        foundTown.setLongitude(town.getLongitude());
+        foundTown.setLatitude(town.getLatitude());
+        foundTown.setStartTownTrip(town.getStartTownTrip());
+        foundTown.setEndTownTrip(town.getEndTownTrip());
+        return townRepository.save(foundTown);
+
     }
 
 
@@ -79,7 +74,5 @@ public class TownServiceImplementation implements TownService {
     public void deleteByTitle(String title) {
 
         townRepository.deleteTownByTitle(title);
-
-
     }
 }

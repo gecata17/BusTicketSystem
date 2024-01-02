@@ -26,7 +26,8 @@ import { DropListComponent } from './components/drop-list/drop-list.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

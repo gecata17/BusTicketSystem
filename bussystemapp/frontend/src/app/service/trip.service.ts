@@ -21,7 +21,13 @@ export class TripService {
     return this.http.put<Trip>(`${this.apiServerUrl}/private/api/trips/update/${trip.description}`,trip);
   }
 
-  deleteTrip(tripId:number){
-    return this.http.delete<Trip>(`${this.apiServerUrl}/private/api/trips/${tripId}`);
+  getTripsByTown(title:string | null){
+    const url = `${this.apiServerUrl}/private/api/trips/${title}`;
+    return this.http.get<Trip[]>(url);
+
+  }
+
+  deleteTrip(trip:Trip){
+    return this.http.delete<Trip>(`${this.apiServerUrl}/private/api/trips/${trip.description}`);
   }
 }

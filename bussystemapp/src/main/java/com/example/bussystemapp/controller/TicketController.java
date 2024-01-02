@@ -19,16 +19,16 @@ public class TicketController {
     private final TicketService ticketService;
 
 
-    @GetMapping("/{myprofile}")
-    public ResponseEntity<List<TicketDto>> getTickets(@PathVariable("myprofile") String username){
+    @GetMapping("/{username}")
+    public ResponseEntity<List<TicketDto>> getTicketsByUser(@PathVariable("username") String username){
 
         List<Ticket> tickets = ticketService.findAllTicketsByUser(username);
 
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(), HttpStatus.OK);
     }
 
-    @GetMapping("/{ticketinfo}")
-    public ResponseEntity<List<TicketDto>> getTicketsByRoute(@PathVariable("ticketinfo") String description){
+    @GetMapping("/{description}")
+    public ResponseEntity<List<TicketDto>> getTicketsByRoute(@PathVariable("description") String description){
         List<Ticket> tickets =ticketService.findAllTicketsByRoute(description);
 
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(),HttpStatus.OK);

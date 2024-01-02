@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface TownRepository extends JpaRepository<Town,String> {
 
-    Optional<Town> findByTitle(String title);
+   Town findByTitle(String title);
     void deleteTownByTitle(String title);
 }

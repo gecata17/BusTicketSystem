@@ -21,7 +21,7 @@ public interface TripService {
 
     Trip dtoToEntity(TripDto tripDto);
 
-    List<Trip> getAllOrganisedTripsByTown(String title);
+    List<Trip> findAllOrganisedTripsByTown(String title);
     void deleteByDescription(String description);
 
 }

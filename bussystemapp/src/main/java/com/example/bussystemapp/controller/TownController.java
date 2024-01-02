@@ -38,8 +38,8 @@ public class TownController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteTown(@PathVariable ("id") String title){
+    @DeleteMapping("/{title}")
+    public void deleteTown(@PathVariable ("title") String title){
 
         townService.deleteByTitle(title);
     }
