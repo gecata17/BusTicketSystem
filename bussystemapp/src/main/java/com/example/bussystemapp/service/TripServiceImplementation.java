@@ -10,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
-public class TripServiceImplementation implements TripService{
+public class TripServiceImplementation implements TripService {
 
     private final TripRepository tripRepository;
     private final TownRepository townRepository;
@@ -36,7 +36,7 @@ public class TripServiceImplementation implements TripService{
     }
 
     @Override
-    public Trip updateTrip(Trip trip , String description) {
+    public Trip updateTrip(Trip trip, String description) {
         Trip foundTrip = tripRepository.findByDescription(description);
 
         foundTrip.setDescription(trip.getDescription());
@@ -56,26 +56,31 @@ public class TripServiceImplementation implements TripService{
 
     @Override
     public TripDto entityToDto(Trip trip) {
-        return new TripDto(trip.getDescription(),trip.getSeats(),trip.getDateOfDeparture(),trip.getDateOfArrival());
+        return new TripDto(trip.getDescription(), trip.getSeats(), trip.getDateOfDeparture(), trip.getDateOfArrival());
     }
 
     @Override
     public Trip dtoToEntity(TripDto tripDto) {
-        return new Trip(tripDto.getDescription(),tripDto.getSeats(),tripDto.getDateOfDeparture(),tripDto.getDateOfArrival());
+        return new Trip(tripDto.getDescription(), tripDto.getSeats(), tripDto.getDateOfDeparture(), tripDto.getDateOfArrival());
     }
 
-    //TO DO
-    @Override
-    public List<Trip> getAllOrganisedTripsByTown(String title) {
-        Optional<Town> town = townRepository.findByTitle(title);
-       //return tripRepository.findAllByStartTownAndEndTown();
 
-        return null;
+    @Override
+    public List<Trip> findAllOrganisedTripsByTown(String title) {
+        Town town = townRepository.findByTitle(title);
+
+        if (town != null) {
+            // Directly return the result from the repository method
+            return tripRepository.findAllByStartTownAndEndTown(town,town);
+        } else {
+            // Handle the case when the town with the given title is not found
+            return null;
+        }
     }
 
 
     @Override
     public void deleteByDescription(String description) {
-           tripRepository.deleteTripByDescription(description);
+        tripRepository.deleteTripByDescription(description);
     }
 }

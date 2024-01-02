@@ -1,5 +1,22 @@
+
+
 <div class="user-profile">
-  <img src="profile-image.jpg" alt="User Profile Image" class="profile-image">
+  <div class="row">
+    <h2 class="profile-title">My Profile</h2>
+  </div>
+
+  <div class="row">
+    <div class="form-item column">
+      <label for="ProfileImage" class="left">Profile Image</label>
+      <input id="ProfileImage" type="file" (change)="handleImageChange($event)" accept="image/*">
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="form-item column">
+      <img id="selectedImage" [src]="selectedImageUrl" alt="Selected Image" class="profile-image">
+    </div>
+  </div>
 
   <div class="row">
     <div class="form-item column">
@@ -22,14 +39,16 @@
     </div>
   </div>
 
-  
-
   <br><br>
 
   <div class="row">
     <div class="text-center column">
       <button type="submit" class="button be-button main-next-button small-12 medium-4 large-3">Save</button>
       <button id="deleteUserButton" type="button" class="delete-button small-12 medium-4 large-4">Delete User</button>
+
+      <button type="button" class="btn-logout top-right" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout" (click)="logout()">Logout</button>
     </div>
   </div>
 </div>
+
+

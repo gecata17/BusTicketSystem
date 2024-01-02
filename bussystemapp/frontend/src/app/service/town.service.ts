@@ -18,8 +18,8 @@ export class TownService {
   }
 
 
-  deleteTown(townId:number){
-    return this.http.delete<Town>(`${this.apiServerUrl}/private/api/towns/${townId}`);
+  deleteTown(town:Town){
+    return this.http.delete<Town>(`${this.apiServerUrl}/private/api/towns/${town.title}`);
   }
 
 

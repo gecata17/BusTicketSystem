@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TicketSearchService } from 'src/app/service/ticket-search.service';
+import { TokenStorageService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-ticketsearch',
@@ -10,11 +12,27 @@ export class TicketsearchComponent {
   destination: string = ''; // Variable to store the entered destination
   selectedDate: string = ''; // Variable to store the selected date
 
+  //TO DO
+  dateOfDeparture: any;
+  startTown: any; 
+  endTown: any;
+
+  constructor(
+    private tokenStorage:TokenStorageService,
+    private router:Router
+    ){}
+
   searchTickets(): void {
-    // Logic to perform ticket search based on destination and date
+    // TO DO
     console.log('Searching for tickets...');
     console.log('Destination:', this.destination);
     console.log('Date:', this.selectedDate);
-    // You can add more complex logic or call a service to perform the actual search
+    
   }
+
+  logout(){
+    this.tokenStorage.signOut();
+    this.router.navigateByUrl('/login');
+  }
+
 }
