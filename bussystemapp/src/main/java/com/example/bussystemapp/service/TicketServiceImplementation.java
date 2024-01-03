@@ -23,7 +23,6 @@ public class TicketServiceImplementation implements TicketService {
     private final TripRepository tripRepository;
 
 
-
     @Override
     public Ticket createTicket(Ticket ticket) {
         if (ticket.getAssignedTo() != null) {
@@ -45,7 +44,7 @@ public class TicketServiceImplementation implements TicketService {
 
     @Override
     public Ticket updateTicket(Ticket ticket, Long id) {
-        Ticket foundTicket  = ticketRepository.findById(id).orElseThrow(EntityExistsException::new);
+        Ticket foundTicket = ticketRepository.findById(id).orElseThrow(EntityExistsException::new);
         foundTicket.setTitle(ticket.getTitle());
         foundTicket.setStatus(ticket.getStatus());
         foundTicket.setTrip(ticket.getTrip());
@@ -70,12 +69,28 @@ public class TicketServiceImplementation implements TicketService {
 
     @Override
     public TicketDto entityToDto(Ticket ticket) {
-        return new TicketDto(ticket.getTitle(),ticket.getStatus(),ticket.getPrice());
+        String assignedTo = ticket.getAssignedTo() == null ? "" : ticket.getAssignedTo().getUsername();
+        String trip = ticket.getTrip() == null ? "" : ticket.getTrip().getDescription();
+        return new TicketDto(ticket.getTitle(), ticket.getStatus(), ticket.getPrice(), trip, assignedTo);
     }
 
     @Override
     public Ticket dtoToEntity(TicketDto ticketDto) {
-        return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(),ticketDto.getPrice());
+        User assignedTo;
+        Trip trip;
+
+        if (ticketDto.getAssignedTo().equals("")) {
+            assignedTo = null;
+        } else {
+            assignedTo = userRepository.findById(ticketDto.getAssignedTo()).orElseThrow(EntityExistsException::new);
+        }
+
+        if (ticketDto.getTrip().equals("")) {
+            trip = null;
+        } else {
+            trip = tripRepository.findByDescription(ticketDto.getTrip());
+        }
+        return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(), ticketDto.getPrice(), trip, assignedTo);
     }
 
     @Override

@@ -48,10 +48,12 @@ public class Ticket {
     private Trip trip;
 
 
-    public Ticket(String title, Status status,double price) {
+    public Ticket(String title, Status status,double price,Trip trip,User assignedTo) {
         this.title = title;
         this.status = status;
         this.price = price;
+        this.trip=trip;
+        this.assignedTo=assignedTo;
     }
 
 }

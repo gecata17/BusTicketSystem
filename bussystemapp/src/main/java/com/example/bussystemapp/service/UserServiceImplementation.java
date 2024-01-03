@@ -58,6 +58,11 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     }
 
     @Override
+    public void deleteByUsername(String username) {
+        userRepository.deleteByUsername(username);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findById(username).orElseThrow(EntityExistsException::new);
         System.out.println(user.toString());

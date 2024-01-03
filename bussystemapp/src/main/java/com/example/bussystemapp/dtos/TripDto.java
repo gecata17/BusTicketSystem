@@ -13,9 +13,11 @@ public class TripDto {
 
     private String description;
 
+    private String startTown;
+    private String endTown;
     private Long seats;
 
     private LocalDateTime dateOfDeparture;
 
-    private LocalDateTime dateOfArrival;
+
 }

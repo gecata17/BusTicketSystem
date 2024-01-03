@@ -1,20 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/app/model/ticket-model';
 import { User } from 'src/app/model/user-model';
 import { TicketSearchService } from 'src/app/service/ticket-search.service';
 import { TokenStorageService } from 'src/app/service/token.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
   styleUrls: ['./myprofile.component.css']
 })
-export class MyprofileComponent {
+export class MyprofileComponent implements OnInit {
 
   myProfileTickets: Ticket[] = [];
   user: User = new User('', '', '', []);
-  selectedImageUrl: string | ArrayBuffer = 'assets/test.png'; // Set the initial path of your image
+  selectedImageUrl: string | ArrayBuffer = 'assets/test.png';
+
+  constructor(
+    private ticketService: TicketSearchService,
+    private userService: UserService,
+    private tokenStorage: TokenStorageService,
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile(): void {
+    const username = this.tokenStorage.getUsername();
+    console.log('Username:', username);
+    // Fetch user information
+    this.userService.getUserByUsername(username).subscribe((user) => {
+      this.user = user;
+         
+      // Fetch tickets for the current user
+      this.ticketService.getAllTicketsByCurrentUser(username).subscribe((tickets) => {
+        this.myProfileTickets = tickets;
+      });
+    });
+  }
 
   handleImageChange(event: any): void {
     const file = event.target.files?.[0]; // Use optional chaining to handle undefined
@@ -33,18 +59,32 @@ export class MyprofileComponent {
     }
   }
 
-  constructor(
-    private ticketService: TicketSearchService,
-    private tokenStorage: TokenStorageService,
-    private router:Router,
-  ) {
-    this.ticketService.getAllTicketsByCurrentUser(tokenStorage.getUsername()).subscribe((tickets) => {
-      this.myProfileTickets = tickets;
-    });
+  deleteCurrentUser(): void {
+    console.log('Deleting user:', this.user);
+  
+    if (!this.user || !this.user.username) {
+      console.error('Invalid user or username');
+      return;
+    }
+  
+    this.userService.deleteUser(this.user).subscribe(
+      () => {
+        // Perform any additional actions after deletion if needed
+        this.tokenStorage.signOut();
+        this.router.navigateByUrl('/login');
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        // Handle error as needed
+      }
+    );
   }
+  
 
   logout() {
     this.tokenStorage.signOut();
     this.router.navigateByUrl('/login');
   }
+
+ 
 }

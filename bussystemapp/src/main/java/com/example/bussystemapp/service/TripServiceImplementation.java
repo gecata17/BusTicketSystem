@@ -56,12 +56,30 @@ public class TripServiceImplementation implements TripService {
 
     @Override
     public TripDto entityToDto(Trip trip) {
-        return new TripDto(trip.getDescription(), trip.getSeats(), trip.getDateOfDeparture(), trip.getDateOfArrival());
+
+        String startTown = trip.getStartTown() == null ? "" : trip.getStartTown().getTitle();
+        String endTown = trip.getEndTown() == null ? "" : trip.getEndTown().getTitle();
+        return new TripDto(trip.getDescription(), startTown, endTown, trip.getSeats(), trip.getDateOfDeparture());
     }
 
     @Override
     public Trip dtoToEntity(TripDto tripDto) {
-        return new Trip(tripDto.getDescription(), tripDto.getSeats(), tripDto.getDateOfDeparture(), tripDto.getDateOfArrival());
+        Town startTown;
+        Town endTown;
+
+        if(tripDto.getStartTown().equals("")){
+            startTown=null;
+        }else{
+            startTown=townRepository.findByTitle(tripDto.getStartTown());
+        }
+
+        if(tripDto.getEndTown().equals("")){
+            endTown=null;
+        }
+        else{
+            endTown= townRepository.findByTitle(tripDto.getEndTown());
+        }
+        return new Trip(tripDto.getDescription(), startTown, endTown, tripDto.getSeats(), tripDto.getDateOfDeparture());
     }
 
 
@@ -71,7 +89,7 @@ public class TripServiceImplementation implements TripService {
 
         if (town != null) {
             // Directly return the result from the repository method
-            return tripRepository.findAllByStartTownAndEndTown(town,town);
+            return tripRepository.findAllByStartTownAndEndTown(town, town);
         } else {
             // Handle the case when the town with the given title is not found
             return null;
