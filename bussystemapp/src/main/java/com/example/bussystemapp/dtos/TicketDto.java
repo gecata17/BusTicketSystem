@@ -14,4 +14,8 @@ public class TicketDto {
     private Status status;
 
     private double price;
+
+    private String trip;
+
+    private String assignedTo;
 }

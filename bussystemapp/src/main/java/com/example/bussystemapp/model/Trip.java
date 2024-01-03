@@ -29,24 +29,26 @@ public class Trip {
     private Town endTown;
 
     @Column(name = "Seats", nullable = false)
-    private Long seats;
+    private Long seats = 0L;
 
     //check how LocalDateTime works for specific date and time
     @Column(name = "DateOfDeparture", nullable = false)
     private LocalDateTime dateOfDeparture;
 
     @Column(name = "DateOfArrival", nullable = false)
-    private LocalDateTime dateOfArrival;
+    private LocalDateTime dateOfArrival = LocalDateTime.now();
 
 
     @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
     private Set<Ticket> assignedTickets = new HashSet<>();
 
-    public Trip(String description,Long seats, LocalDateTime dateOfDeparture, LocalDateTime dateOfArrival) {
+    public Trip(String description,Town startTown,Town endTown,Long seats, LocalDateTime dateOfDeparture) {
         this.description=description;
+        this.startTown=startTown;
+        this.endTown=endTown;
         this.seats = seats;
-        this.dateOfDeparture = dateOfDeparture;
-        this.dateOfArrival = dateOfArrival;
+        this.dateOfDeparture = LocalDateTime.now();
+
     }
 
 

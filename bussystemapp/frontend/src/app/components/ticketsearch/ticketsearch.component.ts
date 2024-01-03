@@ -30,6 +30,7 @@ export class TicketsearchComponent {
     
   }
 
+  
   logout(){
     this.tokenStorage.signOut();
     this.router.navigateByUrl('/login');

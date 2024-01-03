@@ -17,4 +17,6 @@ public interface UserService
     User findByEmail(String email);
 
     List<User> getAllUsers();
+
+    void deleteByUsername(String username);
 }
