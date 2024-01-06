@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveUser(response.username);
           this.tokenStorage.saveToken(response.token);
           this.isLoggedIn = true;
-          this.router.navigateByUrl("/myprofile");
+          this.router.navigateByUrl("/ticketsearch");
         }
       },
       error: (err) => {

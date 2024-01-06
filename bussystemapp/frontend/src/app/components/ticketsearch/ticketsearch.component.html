@@ -85,29 +85,45 @@
   <!-- Date Picker -->
   <div class="form-group">
     <label for="departureDate">Departure Date:</label>
-    <input type="date" ng-model="dateOfDeparture" class="form-control" id="departureDate" placeholder="Select Departure Date">
+    <input type="date" [(ngModel)]="selectedDate" class="form-control" id="departureDate" placeholder="Select Departure Date">
   </div>
 
   <!-- Source and Destination Selection on the same row -->
   <div class="row">
     <div class="col-md-6 mb-3">
       <label for="source">Source:</label>
-      <input type="text" ng-model="startTown" class="form-control" id="source" placeholder="Enter Source City">
+      <input type="text" [(ngModel)]="startTown" class="form-control" id="source" placeholder="Enter Source City">
     </div>
     <div class="col-md-6 mb-3">
       <label for="destination">Destination:</label>
-      <input type="text" ng-model="endTown" class="form-control" id="destination" placeholder="Enter Destination City">
+      <input type="text" [(ngModel)]="endTown" class="form-control" id="destination" placeholder="Enter Destination City">
     </div>
   </div>
 
   <!-- Search Button -->
-  <button class="btn btn-primary" ng-click="searchTickets()">Search Tickets</button>
+  <button class="btn btn-primary" (click)="searchTickets()">Search Tickets</button>
 </div>
 
 <!-- Ticket Search Results -->
-<div class="container mt-5" id="ticketResultsContainer" ng-show="showResults">
-  <h2>Available tickets</h2>
-  <div id="ticketResults"></div>
+<div class="container mt-5" id="ticketResultsContainer" *ngIf="tickets.length > 0">
+  <h2 class="text-center mb-4">Available Tickets</h2>
+  <div id="ticketResults">
+    <div *ngFor="let ticket of tickets" class="row entry">
+      <div class="col-md-8 mx-auto">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fa fa-bus"></i> {{ ticket.title }}</h5>
+            <p class="card-text">Passenger: {{ ticket.assignedTo }}</p>
+            <p class="card-text">Price: {{ ticket.price }} leva</p>
+            <p class="card-text">Status: {{ ticket.status }}</p>
+
+            <!-- Add "Pay" button with a router link to navigate to the buyticket page -->
+            <a routerLink="/buyticket" class="btn btn-primary">Pay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Include Angular and Bootstrap JS -->
@@ -116,74 +132,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-  angular.module('ticketApp', [])
-    .controller('ticketController', function ($scope) {
-      $scope.showResults = false;
 
-      // Sample ticket data
-      const tickets = [
-        { date: '22.07.2022', departure: 'Sofia', departureTime: '18:10', destination: 'Pleven', arrivalTime: '20:40', passenger: 'Georgi Birdanov', seat: '35', price: '9.50' },
-        // Add more tickets as needed
-      ];
 
-      // Function to generate ticket HTML
-      function generateTicketHTML(ticket) {
-        return `
-          <div class="row entry">
-            <div class="ticket-wrapper">
-              <!-- Add your ticket HTML structure here based on the provided data -->
-              <!-- Use ticket properties like ticket.date, ticket.departure, etc. -->
-              <!-- Example: -->
-              <div class="ticket-main-part">
-                <div class="ticket-header-sub">
-                  <label class="ticket-label-big">Дата на пътуване</label>
-                  <span class="value-big">${ticket.date}</span>
-                </div>
-                <div class="ticket-title">
-                  <img src="/images/icons/bus-depart.svg">
-                  ${ticket.departure}
-                </div>
-                <!-- Add more ticket details here -->
-                <div class="ticket-side-part">
-                  <div class="ticket-side-label">Пътник</div>
-                  <div class="ticket-side-value">${ticket.passenger}</div>
-                  <!-- Add more ticket details here -->
-                </div>
-              </div>
-              <!-- Add more ticket HTML structure here -->
-            </div>
-          </div>
-        `;
-      }
-
-      // Function to display tickets on the page
-      $scope.displayTickets = function () {
-        const ticketResultsContainer = document.getElementById('ticketResultsContainer');
-        const ticketResults = document.getElementById('ticketResults');
-
-        // Clear previous results
-        ticketResults.innerHTML = '';
-
-        // Generate HTML for each ticket and append to the container
-        tickets.forEach((ticket) => {
-          const ticketHTML = generateTicketHTML(ticket);
-          ticketResults.innerHTML += ticketHTML;
-        });
-
-        // Display the ticket results container
-        $scope.showResults = true;
-      };
-
-      // Function to handle the searchTickets button click
-      $scope.searchTickets = function () {
-        // Perform ticket search logic here
-
-        // For demonstration purposes, call displayTickets to show sample results
-        $scope.displayTickets();
-      };
-    });
-</script>
 
 </body>
 

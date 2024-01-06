@@ -31,7 +31,7 @@ public class TripController {
     }
 
     @PutMapping("/update/{description}")
-    public ResponseEntity<TripDto> updateTrip(@PathVariable("description") String description, @RequestBody TripDto tripDto){
+    public ResponseEntity<TripDto> updateTrip(@PathVariable("description") Long description, @RequestBody TripDto tripDto){
         try{
             return new ResponseEntity<>(tripService.entityToDto(tripService.updateTrip(tripService.dtoToEntity(tripDto), description)),HttpStatus.OK);
 
@@ -47,7 +47,7 @@ public class TripController {
     }
 
     @DeleteMapping("/{description}")
-    public void deleteTrip(@PathVariable("description") String description){
+    public void deleteTrip(@PathVariable("description") Long description){
         tripService.deleteByDescription(description);
     }
 

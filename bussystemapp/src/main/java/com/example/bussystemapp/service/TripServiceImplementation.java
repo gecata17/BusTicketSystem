@@ -5,7 +5,6 @@ import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.model.Trip;
 import com.example.bussystemapp.repository.TownRepository;
 import com.example.bussystemapp.repository.TripRepository;
-import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,6 @@ public class TripServiceImplementation implements TripService {
 
         Trip newTrip = new Trip();
 
-        newTrip.setDescription(trip.getDescription());
         newTrip.setStartTown(trip.getStartTown());
         newTrip.setEndTown(trip.getEndTown());
         newTrip.setDateOfDeparture(trip.getDateOfDeparture());
@@ -36,10 +34,9 @@ public class TripServiceImplementation implements TripService {
     }
 
     @Override
-    public Trip updateTrip(Trip trip, String description) {
-        Trip foundTrip = tripRepository.findByDescription(description);
+    public Trip updateTrip(Trip trip, Long description) {
+        Trip foundTrip = tripRepository.findTripById(description);
 
-        foundTrip.setDescription(trip.getDescription());
         foundTrip.setStartTown(trip.getStartTown());
         foundTrip.setEndTown(trip.getEndTown());
         foundTrip.setDateOfDeparture(trip.getDateOfDeparture());
@@ -50,8 +47,8 @@ public class TripServiceImplementation implements TripService {
     }
 
     @Override
-    public Trip findByDescription(String description) {
-        return tripRepository.findById(description).orElseThrow(EntityExistsException::new);
+    public Trip findByDescription(Long description) {
+        return tripRepository.findTripById(description);
     }
 
     @Override
@@ -59,7 +56,7 @@ public class TripServiceImplementation implements TripService {
 
         String startTown = trip.getStartTown() == null ? "" : trip.getStartTown().getTitle();
         String endTown = trip.getEndTown() == null ? "" : trip.getEndTown().getTitle();
-        return new TripDto(trip.getDescription(), startTown, endTown, trip.getSeats(), trip.getDateOfDeparture());
+        return new TripDto(startTown, endTown, trip.getSeats(), trip.getDateOfDeparture(), trip.getDateOfArrival());
     }
 
     @Override
@@ -79,7 +76,7 @@ public class TripServiceImplementation implements TripService {
         else{
             endTown= townRepository.findByTitle(tripDto.getEndTown());
         }
-        return new Trip(tripDto.getDescription(), startTown, endTown, tripDto.getSeats(), tripDto.getDateOfDeparture());
+        return new Trip(startTown, endTown, tripDto.getSeats(), tripDto.getDateOfDeparture(), tripDto.getDateOfArrival());
     }
 
 
@@ -98,7 +95,7 @@ public class TripServiceImplementation implements TripService {
 
 
     @Override
-    public void deleteByDescription(String description) {
-        tripRepository.deleteTripByDescription(description);
+    public void deleteByDescription(Long description) {
+        tripRepository.deleteTripById(description);
     }
 }

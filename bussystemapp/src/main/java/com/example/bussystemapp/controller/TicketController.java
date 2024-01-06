@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,19 +20,23 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-
+/*
     @GetMapping("/{username}")
     public ResponseEntity<List<TicketDto>> getTicketsByUser(@PathVariable("username") String username){
 
         List<Ticket> tickets = ticketService.findAllTicketsByUser(username);
 
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(), HttpStatus.OK);
-    }
+    }*/
 
-    @GetMapping("/{description}")
-    public ResponseEntity<List<TicketDto>> getTicketsByRoute(@PathVariable("description") String description){
-        List<Ticket> tickets =ticketService.findAllTicketsByRoute(description);
-
+    @GetMapping("")
+    public ResponseEntity<List<TicketDto>> getTicketsByRoute(@RequestParam("startTown") String startTown, @RequestParam("endTown") String endTown, @RequestParam("dateOfDeparture") String date){
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        try {
+            tickets = ticketService.findAllTicketsByRoute(startTown, endTown, LocalDate.parse(date));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().build();
+        }
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(),HttpStatus.OK);
     }
 

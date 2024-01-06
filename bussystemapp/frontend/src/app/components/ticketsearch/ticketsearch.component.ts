@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Ticket } from 'src/app/model/ticket-model';
 import { TicketSearchService } from 'src/app/service/ticket-search.service';
 import { TokenStorageService } from 'src/app/service/token.service';
 
@@ -9,31 +10,39 @@ import { TokenStorageService } from 'src/app/service/token.service';
   styleUrls: ['./ticketsearch.component.css']
 })
 export class TicketsearchComponent {
-  destination: string = ''; // Variable to store the entered destination
-  selectedDate: string = ''; // Variable to store the selected date
-
-  //TO DO
+  destination: string = '';
+  selectedDate: string = '';
   dateOfDeparture: any;
-  startTown: any; 
+  startTown: any;
   endTown: any;
+  tickets:Ticket[]=[];
+  selectedStartTown: any;
 
   constructor(
-    private tokenStorage:TokenStorageService,
-    private router:Router
-    ){}
+    private tokenStorage: TokenStorageService,
+    private router: Router,
+    private ticketSearchService: TicketSearchService
+  ) {}
 
   searchTickets(): void {
-    // TO DO
     console.log('Searching for tickets...');
     console.log('Destination:', this.destination);
     console.log('Date:', this.selectedDate);
-    
+
+    // Assuming you have a method in your service to fetch tickets
+    this.ticketSearchService.getAllTicketsByCurrentRoute(this.startTown, this.endTown, this.selectedDate).subscribe(tickets => {
+      console.log('Tickets:', tickets);
+      this.tickets=tickets;
+      // Process tickets as needed
+    });
   }
 
+  updateStartTown(selectedStartTown: any): void {
+    this.startTown = selectedStartTown;
+  }
   
-  logout(){
+  logout() {
     this.tokenStorage.signOut();
     this.router.navigateByUrl('/login');
   }
-
 }

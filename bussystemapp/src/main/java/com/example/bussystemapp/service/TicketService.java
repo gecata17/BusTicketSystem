@@ -2,8 +2,10 @@ package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.dtos.TicketDto;
 import com.example.bussystemapp.model.Ticket;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -14,7 +16,7 @@ public interface TicketService {
 
       List<Ticket> findAllTicketsByUser(String username);
 
-      List<Ticket> findAllTicketsByRoute(String description);
+      List<Ticket> findAllTicketsByRoute(String startTown, String endTown, LocalDate date) throws EntityNotFoundException;
 
       TicketDto entityToDto(Ticket ticket);
 

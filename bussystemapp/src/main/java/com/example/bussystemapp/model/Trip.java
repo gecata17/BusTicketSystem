@@ -3,7 +3,7 @@ package com.example.bussystemapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +16,16 @@ import java.util.Set;
 public class Trip {
 
     @Id
-    @Column(name = "desciption",nullable = false)
-    private String description;
+    @SequenceGenerator(
+            name = "trip_id",
+            sequenceName = "trip_id",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "trip_id"
+    )
+    private Long id;
 
 
     @ManyToOne()
@@ -33,21 +41,21 @@ public class Trip {
 
     //check how LocalDateTime works for specific date and time
     @Column(name = "DateOfDeparture", nullable = false)
-    private LocalDateTime dateOfDeparture;
+    private LocalDate dateOfDeparture;
 
     @Column(name = "DateOfArrival", nullable = false)
-    private LocalDateTime dateOfArrival = LocalDateTime.now();
+    private LocalDate dateOfArrival;
 
 
     @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
     private Set<Ticket> assignedTickets = new HashSet<>();
 
-    public Trip(String description,Town startTown,Town endTown,Long seats, LocalDateTime dateOfDeparture) {
-        this.description=description;
+    public Trip(Town startTown,Town endTown,Long seats, LocalDate dateOfDeparture, LocalDate dateOfArrival) {
         this.startTown=startTown;
         this.endTown=endTown;
         this.seats = seats;
-        this.dateOfDeparture = LocalDateTime.now();
+        this.dateOfDeparture = dateOfDeparture;
+        this.dateOfArrival = dateOfArrival;
 
     }
 

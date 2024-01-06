@@ -16,7 +16,22 @@ body {
   h2 {
     color: #3431c8; /* Blue */
   }
-  
+  .entry {
+    border: 1px solid #ddd; /* Add a border to separate tickets */
+    margin-bottom: 20px; /* Add margin to create space between tickets */
+    padding: 15px; /* Add padding for better readability */
+    border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+  }
+
+  .ticket-main-part {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ticket-side-part {
+    flex-grow: 1;
+    padding: 0 10px; /* Adjust padding for better spacing */
+  }
   /* Form Styles */
   .form-group label {
     color: #495057; /* Dark Gray */

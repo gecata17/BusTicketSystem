@@ -1,1 +1,78 @@
-<p>buyticket works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Ticket</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <link rel="stylesheet" href="buyticket.component.css">
+</head>
+
+<body>
+    <h1>Buy Ticket</h1>
+
+    <!-- Payment Method Section -->
+    <input id="payment-method" name="method" type="hidden" value="epaybg">
+
+    <ul>
+        <li data-payment-method="bank" class="selected">
+            <div class="payment-method-icon"><i class="fa fa-check" aria-hidden="true"></i></div>
+            <div class="payment-method-content">
+                Bank Card
+                <div id="payment-method-bank" class="payment-method-image"></div>
+            </div>
+        </li>
+        <li data-payment-method="epaybg">
+            <div class="payment-method-icon"><i class="fa fa-check" aria-hidden="true"></i></div>
+            <div class="payment-method-content">
+                ePay.bg
+                <div id="payment-method-epay" class="payment-method-image"></div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Payer Information Section -->
+    <div class="payer-information-wrapper">
+        <input id="resid" type="hidden" value="337548">
+
+        <div class="info-item">
+            <label for="payerNames">Name</label>
+            <input id="payerNames" type="text" class="info payer-info" name="payerNames" value="Your Name">
+        </div>
+
+        <div class="info-item">
+            <label for="payerMail">Email</label>
+            <input id="payerMail" type="text" class="info payer-info" name="payerMail" value="your.email@example.com">
+        </div>
+
+        <div class="info-item">
+            <label for="payerPhone">Phone</label>
+            <input id="payerPhone" type="text" class="info payer-info" name="payerPhone" value="+1234567890">
+        </div>
+    </div>
+
+    <!-- Home and Logout buttons -->
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Home button -->
+            <button class="btn btn-primary icon-button" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                title="TicketSearch Page" (click)="navigateToTicketSearch()">
+                <span class="icon-wrapper">
+                    <i class="fas fa-home"></i>
+                </span>
+                Home
+            </button>
+
+            <!-- Logout button -->
+            <button type="button" class="btn btn-danger btn-logout" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                title="Logout" (click)="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Include your Angular and Java/Spring integration code here -->
+
+    <!-- Include your JavaScript scripts at the end of the body section -->
+</body>
+
+</html>
