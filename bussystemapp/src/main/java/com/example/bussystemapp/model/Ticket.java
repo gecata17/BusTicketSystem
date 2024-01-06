@@ -44,7 +44,7 @@ public class Ticket {
 
 
     @ManyToOne()
-    @JoinColumn(name = "Route",referencedColumnName = "desciption")
+    @JoinColumn(name = "Route",referencedColumnName = "id")
     private Trip trip;
 
 

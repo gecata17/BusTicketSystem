@@ -13,15 +13,15 @@ public interface TripService {
 
     Trip createTrip(Trip trip);
 
-    Trip updateTrip(Trip trip, String description);
+    Trip updateTrip(Trip trip, Long description);
 
-    Trip findByDescription(String description);
+    Trip findByDescription(Long description);
 
     TripDto entityToDto(Trip trip);
 
     Trip dtoToEntity(TripDto tripDto);
 
     List<Trip> findAllOrganisedTripsByTown(String title);
-    void deleteByDescription(String description);
+    void deleteByDescription(Long description);
 
 }

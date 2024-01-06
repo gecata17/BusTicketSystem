@@ -1,23 +1,17 @@
 package com.example.bussystemapp.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class TripDto {
-
+public class TicketsRequest {
     private String startTown;
     private String endTown;
-    private Long seats;
-
     private LocalDate dateOfDeparture;
-    private LocalDate dateOfArrival;
-
 
 }

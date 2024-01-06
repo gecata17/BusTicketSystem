@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ticket } from '../model/ticket-model';
 import { environment } from 'src/environments/environment';
@@ -30,9 +30,12 @@ export class TicketSearchService {
     return this.http.get<Ticket[]>(url);
   }
 
-  getAllTicketsByCurrentRoute(description:string | null){
-
-    const url =`${this.apiServerUrl}/private/api/ticketsearch/${description}`;
-    return this.http.get<Ticket[]>(url);
+  getAllTicketsByCurrentRoute(startTown:string, endTown: string, dateOfDeparture: string){
+    const params = new HttpParams().set(
+      "startTown", startTown).set(
+      "endTown", endTown).set(
+      "dateOfDeparture", dateOfDeparture);
+    const url =`${this.apiServerUrl}/private/api/ticketsearch`;
+    return this.http.get<Ticket[]>(url, {params});
   }
 }

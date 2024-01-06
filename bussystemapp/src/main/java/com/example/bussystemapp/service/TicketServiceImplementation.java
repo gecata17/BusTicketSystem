@@ -2,15 +2,20 @@ package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.dtos.TicketDto;
 import com.example.bussystemapp.model.Ticket;
+import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.model.Trip;
 import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.repository.TicketRepository;
+import com.example.bussystemapp.repository.TownRepository;
 import com.example.bussystemapp.repository.TripRepository;
 import com.example.bussystemapp.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +26,8 @@ public class TicketServiceImplementation implements TicketService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final TripRepository tripRepository;
+
+    private final TownRepository townRepository;
 
 
     @Override
@@ -62,15 +69,30 @@ public class TicketServiceImplementation implements TicketService {
     }
 
     @Override
-    public List<Ticket> findAllTicketsByRoute(String description) {
-        Trip trip = tripRepository.findByDescription(description);
-        return ticketRepository.findAllByTrip(trip);
+    public List<Ticket> findAllTicketsByRoute(String startTownName, String endTownName, LocalDate date) throws EntityNotFoundException {
+        Town startTown=townRepository.findByTitle(startTownName);
+        if (startTown==null) {
+            throw new EntityNotFoundException("Invalid town name");
+        }
+        Town endTown=townRepository.findByTitle(endTownName);
+        if (endTown==null) {
+            throw new EntityNotFoundException("Invalid town name");
+        }
+        List<Trip> trips = tripRepository.findAllByStartTownAndEndTownAndDateOfDeparture(startTown, endTown, date);
+        if (trips==null) {
+            return null;
+        }
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        for (Trip trip : trips) {
+            tickets.addAll(ticketRepository.findAllByTrip(trip));
+        }
+        return tickets;
     }
 
     @Override
     public TicketDto entityToDto(Ticket ticket) {
         String assignedTo = ticket.getAssignedTo() == null ? "" : ticket.getAssignedTo().getUsername();
-        String trip = ticket.getTrip() == null ? "" : ticket.getTrip().getDescription();
+        String trip = ticket.getTrip() == null ? "" : ticket.getTrip().getStartTown().getTitle();
         return new TicketDto(ticket.getTitle(), ticket.getStatus(), ticket.getPrice(), trip, assignedTo);
     }
 
@@ -88,7 +110,7 @@ public class TicketServiceImplementation implements TicketService {
         if (ticketDto.getTrip().equals("")) {
             trip = null;
         } else {
-            trip = tripRepository.findByDescription(ticketDto.getTrip());
+            trip = tripRepository.findById(ticketDto.getTrip()).orElseThrow(EntityNotFoundException::new);
         }
         return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(), ticketDto.getPrice(), trip, assignedTo);
     }
