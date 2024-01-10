@@ -1,5 +1,6 @@
 package com.example.bussystemapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,6 +49,7 @@ public class Trip {
 
 
     @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Ticket> assignedTickets = new HashSet<>();
 
     public Trip(Town startTown,Town endTown,Long seats, LocalDate dateOfDeparture, LocalDate dateOfArrival) {

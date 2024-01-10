@@ -1,4 +1,6 @@
 
+<!-- Add this line in the head section of your HTML -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 
 <div class="user-profile">
   <div class="row">
@@ -58,6 +60,10 @@
       <button type="submit" class="button be-button main-next-button small-12 medium-4 large-3">Save</button>
       <button id="deleteUserButton" type="button" class="delete-button small-12 medium-4 large-4" (click)="deleteCurrentUser()">Delete User</button>
 
+      <!-- Updated button with improved styling -->
+<button type="button" class="btn btn-primary home-button" (click)="navigateToTicketSearch()">
+  <i class="fas fa-home"></i> Home
+</button>
 
       <button type="button" class="btn-logout top-right" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout" (click)="logout()">Logout</button>
     </div>

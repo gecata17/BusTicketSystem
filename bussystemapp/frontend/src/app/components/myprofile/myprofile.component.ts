@@ -80,6 +80,9 @@ export class MyprofileComponent implements OnInit {
     );
   }
   
+  navigateToTicketSearch() {
+    this.router.navigate(['/ticketsearch']);
+  }
 
   logout() {
     this.tokenStorage.signOut();

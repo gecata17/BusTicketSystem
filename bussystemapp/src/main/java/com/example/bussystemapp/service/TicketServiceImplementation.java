@@ -1,6 +1,7 @@
 package com.example.bussystemapp.service;
 
 import com.example.bussystemapp.dtos.TicketDto;
+import com.example.bussystemapp.dtos.TripDto;
 import com.example.bussystemapp.model.Ticket;
 import com.example.bussystemapp.model.Town;
 import com.example.bussystemapp.model.Trip;
@@ -28,6 +29,8 @@ public class TicketServiceImplementation implements TicketService {
     private final TripRepository tripRepository;
 
     private final TownRepository townRepository;
+
+    private final TripService tripService;
 
 
     @Override
@@ -92,7 +95,7 @@ public class TicketServiceImplementation implements TicketService {
     @Override
     public TicketDto entityToDto(Ticket ticket) {
         String assignedTo = ticket.getAssignedTo() == null ? "" : ticket.getAssignedTo().getUsername();
-        String trip = ticket.getTrip() == null ? "" : ticket.getTrip().getStartTown().getTitle();
+        TripDto trip = tripService.entityToDto(ticket.getTrip() == null ? new Trip() : ticket.getTrip());
         return new TicketDto(ticket.getTitle(), ticket.getStatus(), ticket.getPrice(), trip, assignedTo);
     }
 
@@ -110,7 +113,7 @@ public class TicketServiceImplementation implements TicketService {
         if (ticketDto.getTrip().equals("")) {
             trip = null;
         } else {
-            trip = tripRepository.findById(ticketDto.getTrip()).orElseThrow(EntityNotFoundException::new);
+            trip = tripRepository.findById(ticketDto.getTrip().getStartTown()).orElseThrow(EntityNotFoundException::new);
         }
         return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(), ticketDto.getPrice(), trip, assignedTo);
     }

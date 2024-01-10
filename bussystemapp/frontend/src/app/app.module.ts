@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TicketsearchComponent } from './components/ticketsearch/ticketsearch.component';
 import { MyprofileComponent } from './components/myprofile/myprofile.component';
 import { BuyticketComponent } from './components/buyticket/buyticket.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropListComponent } from './components/drop-list/drop-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     FormsModule,
     MatIconModule,
+    ReactiveFormsModule,
 
   ],
   providers: [],
