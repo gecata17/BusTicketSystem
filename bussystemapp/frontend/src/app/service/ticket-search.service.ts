@@ -26,7 +26,7 @@ export class TicketSearchService {
   }
 
   getAllTicketsByCurrentUser(username:string | null){
-    const url = `${this.apiServerUrl}/private/api/ticketsearch/${username}`;
+    const url = `${this.apiServerUrl}/private/api/ticketsearch/usertickets/${username}`;
     return this.http.get<Ticket[]>(url);
   }
 

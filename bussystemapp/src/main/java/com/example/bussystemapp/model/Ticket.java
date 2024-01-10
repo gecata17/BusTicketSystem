@@ -1,6 +1,7 @@
 package com.example.bussystemapp.model;
 
 import com.example.bussystemapp.utils.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,6 +46,7 @@ public class Ticket {
 
     @ManyToOne()
     @JoinColumn(name = "Route",referencedColumnName = "id")
+    @JsonBackReference
     private Trip trip;
 
 

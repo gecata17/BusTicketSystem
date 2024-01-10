@@ -15,7 +15,7 @@ public class TicketDto {
 
     private double price;
 
-    private String trip;
+    private TripDto trip;
 
     private String assignedTo;
 }
