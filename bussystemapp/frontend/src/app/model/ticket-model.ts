@@ -17,6 +17,8 @@ export class Ticket {
     assignedTo: User; 
     price: number;
     trip: Trip;
+    duration: string = "";
+    distance: string= "";
 
 
     constructor(id: number, title: string, status: Status, assignedTo: User, price: number, trip: Trip) {

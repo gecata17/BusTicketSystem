@@ -12,6 +12,7 @@ export class SignupComponent {
   errorMessage = "";
   signUpUser?: SignUpUser;
   passwordsMatch = true;
+  hidePassword: boolean = true;
 
   constructor(private readonly signupService : SignupService, private router:Router){}
 
@@ -22,6 +23,11 @@ export class SignupComponent {
     const confirmPassword=confirmPasswordInput.value;
     this.passwordsMatch=password==confirmPassword;
   }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+  
   public signup(username: string, email: string, password: string){
 
     if(!this.passwordsMatch){

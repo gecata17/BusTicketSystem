@@ -14,14 +14,18 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   success = false;
   errorMessage = "";
-  
+  hidePassword: boolean = true;
 
   constructor(private loginService: LoginService, private tokenStorage: TokenStorageService,private router:Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = false;
   }
-
+  
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+  
   login(username: any, password: any) {
     this.loginService.login(username, password).subscribe({
       next: (response) => {

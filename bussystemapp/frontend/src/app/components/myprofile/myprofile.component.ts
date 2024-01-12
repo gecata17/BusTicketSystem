@@ -16,6 +16,7 @@ export class MyprofileComponent implements OnInit {
   myProfileTickets: Ticket[] = [];
   user: User = new User('', '', '', []);
   selectedImageUrl: string | ArrayBuffer = 'assets/test.png';
+  hidePassword: boolean = true;
 
   constructor(
     private ticketService: TicketSearchService,
@@ -28,6 +29,10 @@ export class MyprofileComponent implements OnInit {
     this.loadUserProfile();
   }
 
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+  
   loadUserProfile(): void {
     const username = this.tokenStorage.getUsername();
     console.log('Username:', username);

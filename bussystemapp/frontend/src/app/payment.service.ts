@@ -24,7 +24,7 @@ export class PaymentService {
     });
 
     this.http.get<any>("https://api.apilayer.com/bincheck/"+cardNUmber, { headers: headers })
-      .subscribe((result: any) => alert("Card is valid"), (error: any) => alert("Card is invalid"));
+      .subscribe((result: any) => alert("Card is valid.Payment was succesful."), (error: any) => alert("Card is invalid.Unsuccesful payment."));
     }
 
 }

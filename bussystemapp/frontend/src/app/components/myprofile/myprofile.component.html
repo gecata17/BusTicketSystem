@@ -30,14 +30,19 @@
   <div class="row">
     <div class="form-item column">
       <label for="UserPassword" class="left">Password</label>
-      <input id="UserPassword" type="password" name="UserPassword" [(ngModel)]="user.password" class="required" readonly>
+      <div class="password-container">
+        <input id="UserPassword" type="{{ hidePassword ? 'password' : 'text' }}" name="UserPassword" [(ngModel)]="user.password" class="required" >
+        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+          <i class="fas" [ngClass]="{'fa-eye': hidePassword, 'fa-eye-slash': !hidePassword}"></i>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="form-item column">
       <label for="UserEmail" class="left">Email</label>
-      <input id="UserEmail" type="email" name="UserEmail" [(ngModel)]="user.email" class="required" readonly>
+      <input id="UserEmail" type="email" name="UserEmail" [(ngModel)]="user.email" class="required" >
     </div>
   </div>
 
