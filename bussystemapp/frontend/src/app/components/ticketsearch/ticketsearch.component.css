@@ -57,6 +57,34 @@ body {
     background-color: #f8f9fa; /* Light Grayish Blue */
     color: #495057; /* Dark Gray */
   }
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    color: #3431c8;
+  }
+  
+  .card-text {
+    color: #495057;
+  }
+  
+  .duration {
+    font-weight: bold;
+    color: #28a745; /* Green color for duration */
+  }
+  
+  .field-label {
+    font-weight: bold;
+    color: #6c757d; /* Dark Gray for label */
+  }
+  
+  .field-value {
+    color: #28a745; /* Green color for value */
+  }
   
   /* Responsive Styles (Optional) */
   @media (max-width: 768px) {
