@@ -24,7 +24,12 @@ public class TicketController {
     @GetMapping("/usertickets/{username}")
     public ResponseEntity<List<TicketDto>> getTicketsByUser(@PathVariable("username") String username){
 
-        List<Ticket> tickets = ticketService.findAllTicketsByUser(username);
+        List<Ticket> tickets = new ArrayList<>();
+        try {
+            tickets=ticketService.findAllTicketsByUser(username);
+        }catch (Exception exception){
+            return  ResponseEntity.badRequest().build();
+        }
 
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(), HttpStatus.OK);
     }
@@ -40,10 +45,12 @@ public class TicketController {
         return new ResponseEntity<>(tickets.stream().map(ticketService::entityToDto).toList(),HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto){
+    @PostMapping("/{trip_id}")
+    public ResponseEntity<TicketDto> createTicket(@PathVariable("trip_id") Long tripId, @RequestBody TicketDto ticketDto){
         try{
-            return new ResponseEntity<>(ticketService.entityToDto(ticketService.createTicket(ticketService.dtoToEntity(ticketDto))), HttpStatus.CREATED);
+            Ticket ticket=ticketService.dtoToEntity(ticketDto, tripId);
+            TicketDto newTicketDto=ticketService.entityToDto(ticketService.createTicket(ticket));
+            return new ResponseEntity<>(newTicketDto, HttpStatus.CREATED);
         } catch (EntityExistsException ex){
 
             return ResponseEntity.badRequest().build();
@@ -54,7 +61,9 @@ public class TicketController {
     @PutMapping("/update/{id}")
     public ResponseEntity<TicketDto> updateTicket(@PathVariable("id") Long id, @RequestBody TicketDto ticketDto){
         try{
-            return new ResponseEntity<>(ticketService.entityToDto(ticketService.updateTicket(ticketService.dtoToEntity(ticketDto),id)),HttpStatus.OK);
+            System.out.println(ticketDto);
+            Long tripId = ticketDto.getTrip() != null ? ticketDto.getTrip().getId() : -1;
+            return new ResponseEntity<>(ticketService.entityToDto(ticketService.updateTicket(ticketService.dtoToEntity(ticketDto, tripId), id)),HttpStatus.OK);
         } catch (EntityExistsException exception){
             return ResponseEntity.badRequest().build();
         }

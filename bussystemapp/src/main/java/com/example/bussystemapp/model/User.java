@@ -1,8 +1,10 @@
 package com.example.bussystemapp.model;
 
+import com.example.bussystemapp.config.UserDetailsImplementation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.util.HashSet;
@@ -36,6 +38,12 @@ public class User  {
         this.email = email;
         this.password = password;
 
+    }
+
+    public User(UserDetailsImplementation userDetails){
+        this.username=userDetails.getUsername();
+        this.email=userDetails.getEmail();
+        this.password=userDetails.getPassword();
     }
 
 }

@@ -55,14 +55,22 @@ public class TicketServiceImplementation implements TicketService {
     @Override
     public Ticket updateTicket(Ticket ticket, Long id) {
         Ticket foundTicket = ticketRepository.findById(id).orElseThrow(EntityExistsException::new);
-        foundTicket.setTitle(ticket.getTitle());
-        foundTicket.setStatus(ticket.getStatus());
-        foundTicket.setTrip(ticket.getTrip());
-        foundTicket.setPrice(ticket.getPrice());
-        foundTicket.setAssignedTo(ticket.getAssignedTo());
-
+        if (ticket.getTitle() != null) {
+            foundTicket.setTitle(ticket.getTitle());
+        }
+        if (ticket.getStatus() != null) {
+            foundTicket.setStatus(ticket.getStatus());
+        }
+        if (ticket.getTrip() != null) {
+            foundTicket.setTrip(ticket.getTrip());
+        }
+        if (ticket.getPrice() != null && ticket.getPrice() != 0.0) {
+            foundTicket.setPrice(ticket.getPrice());
+        }
+        if (ticket.getAssignedTo() != null) {
+            foundTicket.setAssignedTo(ticket.getAssignedTo());
+        }
         return ticketRepository.save(foundTicket);
-
     }
 
     @Override
@@ -72,17 +80,18 @@ public class TicketServiceImplementation implements TicketService {
     }
 
     @Override
-    public List<Ticket> findAllTicketsByRoute(String startTownName, String endTownName, LocalDate date) throws EntityNotFoundException {
-        Town startTown=townRepository.findByTitle(startTownName);
-        if (startTown==null) {
+    public List<Ticket> findAllTicketsByRoute(String startTownName, String endTownName, LocalDate date) throws
+            EntityNotFoundException {
+        Town startTown = townRepository.findByTitle(startTownName);
+        if (startTown == null) {
             throw new EntityNotFoundException("Invalid town name");
         }
-        Town endTown=townRepository.findByTitle(endTownName);
-        if (endTown==null) {
+        Town endTown = townRepository.findByTitle(endTownName);
+        if (endTown == null) {
             throw new EntityNotFoundException("Invalid town name");
         }
         List<Trip> trips = tripRepository.findAllByStartTownAndEndTownAndDateOfDeparture(startTown, endTown, date);
-        if (trips==null) {
+        if (trips == null) {
             return null;
         }
         List<Ticket> tickets = new ArrayList<Ticket>();
@@ -96,25 +105,17 @@ public class TicketServiceImplementation implements TicketService {
     public TicketDto entityToDto(Ticket ticket) {
         String assignedTo = ticket.getAssignedTo() == null ? "" : ticket.getAssignedTo().getUsername();
         TripDto trip = tripService.entityToDto(ticket.getTrip() == null ? new Trip() : ticket.getTrip());
-        return new TicketDto(ticket.getTitle(), ticket.getStatus(), ticket.getPrice(), trip, assignedTo);
+        return new TicketDto(ticket.getId(), ticket.getTitle(), ticket.getStatus(), ticket.getPrice(), trip, assignedTo);
     }
 
     @Override
-    public Ticket dtoToEntity(TicketDto ticketDto) {
-        User assignedTo;
-        Trip trip;
-
-        if (ticketDto.getAssignedTo().equals("")) {
-            assignedTo = null;
-        } else {
+    public Ticket dtoToEntity(TicketDto ticketDto, Long tripId) {
+        User assignedTo = null;
+        if (ticketDto.getAssignedTo() != null) {
             assignedTo = userRepository.findById(ticketDto.getAssignedTo()).orElseThrow(EntityExistsException::new);
         }
 
-        if (ticketDto.getTrip().equals("")) {
-            trip = null;
-        } else {
-            trip = tripRepository.findById(ticketDto.getTrip().getStartTown()).orElseThrow(EntityNotFoundException::new);
-        }
+        Trip  trip = tripRepository.findTripById(tripId);
         return new Ticket(ticketDto.getTitle(), ticketDto.getStatus(), ticketDto.getPrice(), trip, assignedTo);
     }
 

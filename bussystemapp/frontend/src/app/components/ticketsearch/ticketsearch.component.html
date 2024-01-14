@@ -117,6 +117,7 @@
             <p class="card-text">Passenger: {{ ticket.assignedTo }}</p>
             <p class="card-text">Price: {{ ticket.price }} leva</p>
             <p class="card-text">Status: {{ ticket.status }}</p>
+            <p class="card-text">Date Of Arrival: {{ticket.trip?.dateOfArrival}}</p>
 
             <!-- Duration Section -->
             <p class="card-text">
@@ -131,7 +132,8 @@
             </p>
 
             <!-- Add "Pay" button with a router link to navigate to the buyticket page -->
-            <a routerLink="/buyticket" class="btn btn-primary">Pay</a>
+            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pay" (click)="pay(ticket.id)">Pay</button>
+            
           </div>
         </div>
       </div>

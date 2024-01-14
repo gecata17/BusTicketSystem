@@ -23,8 +23,7 @@ export class PaymentService {
       "apikey": "Z73fuM0mtX7lv38srpapZli7lbRstpXv"
     });
 
-    this.http.get<any>("https://api.apilayer.com/bincheck/"+cardNUmber, { headers: headers })
-      .subscribe((result: any) => alert("Card is valid.Payment was succesful."), (error: any) => alert("Card is invalid.Unsuccesful payment."));
-    }
-
+    return this.http.get<any>("https://api.apilayer.com/bincheck/"+cardNUmber, { headers: headers });
+  }
+  
 }

@@ -27,6 +27,7 @@ export class MyprofileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserProfile();
+    this.loadUserTickets();
   }
 
   togglePasswordVisibility() {
@@ -36,16 +37,24 @@ export class MyprofileComponent implements OnInit {
   loadUserProfile(): void {
     const username = this.tokenStorage.getUsername();
     console.log('Username:', username);
+  
     // Fetch user information
     this.userService.getUserByUsername(username).subscribe((user) => {
       this.user = user;
-         
-      // Fetch tickets for the current user
-      this.ticketService.getAllTicketsByCurrentUser(username).subscribe((tickets) => {
-        this.myProfileTickets = tickets;
-      });
+  
     });
   }
+  
+  loadUserTickets(): void {
+    const username = this.tokenStorage.getUsername();
+    
+    // Fetch tickets for the current user
+    this.ticketService.getAllTicketsByCurrentUser(username).subscribe((tickets) => {
+      
+      this.myProfileTickets = tickets;
+    });
+  }
+  
 
   handleImageChange(event: any): void {
     const file = event.target.files?.[0]; // Use optional chaining to handle undefined
