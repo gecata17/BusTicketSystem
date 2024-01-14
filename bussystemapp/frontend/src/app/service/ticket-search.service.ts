@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ticket } from '../model/ticket-model';
+import { Ticket, TicketUpdateRequest } from '../model/ticket-model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -17,8 +17,11 @@ export class TicketSearchService {
     return this.http.post<Ticket>(url,ticket);
   }
 
-  updateTicket(ticket:Ticket){
-    return this.http.put<Ticket>(`${this.apiServerUrl}/private/api/ticketsearch/update/${ticket.id}`,ticket);
+  updateTicket(ticketId : number, ticket:TicketUpdateRequest) {
+    const url = `${this.apiServerUrl}/private/api/ticketsearch/update/${ticketId}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log(url, JSON.stringify(ticket));
+    return this.http.put<Ticket>(url, ticket, { headers });
   }
 
   deleteTicket(ticketId:number){

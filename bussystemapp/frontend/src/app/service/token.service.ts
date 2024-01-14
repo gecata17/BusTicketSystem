@@ -21,7 +21,7 @@ export class TokenStorageService {
         const user = window.sessionStorage.getItem("USER");
         if (user != null) {
             const userObject = JSON.parse(user);
-            return userObject.username;
+            return userObject;
         }
         throw new Error("Not logged in")
     }

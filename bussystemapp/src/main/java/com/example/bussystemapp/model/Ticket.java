@@ -41,7 +41,7 @@ public class Ticket {
 
 
     @Column(name = "Price",nullable = false)
-    private double price;
+    private Double price;
 
 
     @ManyToOne()

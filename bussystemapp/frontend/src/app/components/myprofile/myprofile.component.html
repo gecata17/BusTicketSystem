@@ -1,6 +1,11 @@
 
 <!-- Add this line in the head section of your HTML -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 <div class="user-profile">
   <div class="row">
@@ -46,17 +51,40 @@
     </div>
   </div>
 
-  <!-- Display user's tickets -->
+ <!-- Display user's tickets -->
 <div class="row">
   <div class="form-item column">
     <h3>Your Tickets</h3>
-    <ul>
-      <li *ngFor="let ticket of myProfileTickets">
-        {{ ticket.title }} - {{ ticket.price }} - {{ticket.trip}}
-      </li>
-    </ul>
+    <div *ngIf="myProfileTickets.length > 0; else noTickets">
+      <ul class="list-group">
+        <li *ngFor="let ticket of myProfileTickets" class="list-group-item mb-3">
+          <div>
+            <h5><i class="fas fa-ticket-alt"></i> {{ ticket.title }}</h5>
+            <p>Passenger: {{ ticket.assignedTo }}</p>
+            <p>Price: {{ ticket.price }} leva</p>
+            <p>Status: {{ ticket.status }}</p>
+
+            <!-- Additional ticket details -->
+            <p>
+              <span class="field-label">Date Of Departure: </span>
+              <span class="field-value">{{ ticket.trip?.dateOfDeparture }}</span>
+            </p>
+            <p>
+              <span class="field-label">Date Of Arrival: </span>
+              <span class="field-value">{{ ticket.trip?.dateOfArrival }}</span>
+            </p>
+
+            
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noTickets>
+      <p>No tickets found for the current user.</p>
+    </ng-template>
   </div>
 </div>
+
 
   <br><br>
 
@@ -76,3 +104,7 @@
 </div>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

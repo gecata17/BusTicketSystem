@@ -8,12 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImplementation implements UserDetails {
+public class UserDetailsImplementation  implements UserDetails {
     private final String username;
     private final String email;
 
     @JsonIgnore
     private final String password;
+
+
 
     private final Collection<? extends GrantedAuthority> authorities;
 

@@ -39,6 +39,7 @@ export class TicketsearchComponent {
     this.ticketSearchService.getAllTicketsByCurrentRoute(this.startTown, this.endTown, this.selectedDate)
       .pipe(
         mergeMap((tickets: Ticket[]) => {
+          console.log(tickets);
           const durationRequests: Observable<Ticket>[] = tickets.map(ticket => this.calculateDurationAndDistance(ticket));
           return forkJoin(durationRequests);
         })
@@ -52,8 +53,8 @@ export class TicketsearchComponent {
 
   // Helper method to calculate duration and distance using Google API
   calculateDurationAndDistance(ticket: Ticket): Observable<any> {
-    const startTown = ticket.trip.startTown;
-    const endTown = ticket.trip.endTown;
+    const startTown = ticket.trip?.startTown;
+    const endTown = ticket.trip?.endTown;
     const url = `/maps/api/distancematrix/json?origins=${startTown}&destinations=${endTown}&key=AIzaSyDeVsw14v-ULtHB3IufnSa4J2SzhO6t274&departure_time=now`;
 
     var headers = new HttpHeaders({
@@ -79,6 +80,10 @@ export class TicketsearchComponent {
 
   updateStartTown(selectedStartTown: any): void {
     this.startTown = selectedStartTown;
+  }
+  
+  pay(ticketId:number){
+     this.router.navigate(["/buyticket", { ticket_id: ticketId }]);
   }
   
   logout() {
