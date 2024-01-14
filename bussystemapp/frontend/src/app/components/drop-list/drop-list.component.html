@@ -1,0 +1,27 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<div>
+  <div class="droplist-container">
+    <h2>Start Town</h2>
+    <div class="example-list">
+        <div *ngFor="let trip of trips">
+          <div class="startTown">
+            <mat-form-field>
+              <mat-label>Select Start Town</mat-label>
+              <mat-select (change)="updateStartTown(trip, $event)">
+                <mat-option *ngFor="let town of townOptions" [value]="town">{{ town.title }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- Display the selected start town -->
+            <p class="selected-start-town">{{ selectedStartTown?.title }}</p>
+            <button mat-fab color="primary" aria-label="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+          </div>
+          
+          
+          
+    </div>
+  </div>
+</div>

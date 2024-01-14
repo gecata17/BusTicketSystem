@@ -1,0 +1,95 @@
+/* ticket-search.component.css */
+
+/* Background and Text Colors */
+body {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+    color: #343a40; /* Dark Gray */
+  }
+  
+  .container {
+    background-color: #ffffff; /* White */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light Shadow */
+  }
+  
+  h2 {
+    color: #3431c8; /* Blue */
+  }
+  .entry {
+    border: 1px solid #ddd; /* Add a border to separate tickets */
+    margin-bottom: 20px; /* Add margin to create space between tickets */
+    padding: 15px; /* Add padding for better readability */
+    border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+  }
+
+  .ticket-main-part {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ticket-side-part {
+    flex-grow: 1;
+    padding: 0 10px; /* Adjust padding for better spacing */
+  }
+  /* Form Styles */
+  .form-group label {
+    color: #495057; /* Dark Gray */
+  }
+  
+  .form-control {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    background-color: #007bff; /* Blue */
+    border-color: #007bff; /* Blue */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker Blue on Hover */
+    border-color: #0056b3; /* Darker Blue on Hover */
+  }
+  
+  /* Input Styles */
+  input[type="date"] {
+    background-color: #f8f9fa; /* Light Grayish Blue */
+    color: #495057; /* Dark Gray */
+  }
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    color: #3431c8;
+  }
+  
+  .card-text {
+    color: #495057;
+  }
+  
+  .duration {
+    font-weight: bold;
+    color: #28a745; /* Green color for duration */
+  }
+  
+  .field-label {
+    font-weight: bold;
+    color: #6c757d; /* Dark Gray for label */
+  }
+  
+  .field-value {
+    color: #28a745; /* Green color for value */
+  }
+  
+  /* Responsive Styles (Optional) */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  }
+  
