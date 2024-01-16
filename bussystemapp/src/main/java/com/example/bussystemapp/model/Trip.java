@@ -38,7 +38,7 @@ public class Trip {
     private Town endTown;
 
     @Column(name = "Seats", nullable = false)
-    private Long seats ;
+    private Long seats = 0L ;
 
     //check how LocalDateTime works for specific date and time
     @Column(name = "DateOfDeparture", nullable = false)

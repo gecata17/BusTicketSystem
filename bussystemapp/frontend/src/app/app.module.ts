@@ -14,6 +14,7 @@ import { DropListComponent } from './components/drop-list/drop-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { DropListEndTownComponent } from './drop-list-end-town/drop-list-end-town.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
     TicketsearchComponent,
     MyprofileComponent,
     BuyticketComponent,
-    DropListComponent
+    DropListComponent,
+    DropListEndTownComponent
   ],
   imports: [
     BrowserModule,

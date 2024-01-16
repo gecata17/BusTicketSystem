@@ -1,0 +1,8 @@
+
+
+<div class="dropdown">
+    <select class="form-select" [(ngModel)]="selectedEndTown" (ngModelChange)="selectedValueChangeEndTown.emit($event)">
+      <option *ngFor="let value of townOptions">{{value.title}}</option>
+    </select>
+  </div>
+  

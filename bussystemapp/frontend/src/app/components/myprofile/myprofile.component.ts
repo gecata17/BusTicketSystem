@@ -94,6 +94,20 @@ export class MyprofileComponent implements OnInit {
     );
   }
   
+  saveChanges(): void {
+    this.userService.updateUser(this.user).subscribe(
+      (updatedUser) => {
+        // Update the user in your component
+        this.user = updatedUser;
+        console.log('Changes saved successfully!');
+      },
+      (error) => {
+        console.error('Error saving changes:', error);
+        // Handle error as needed
+      }
+    );
+  }
+
   navigateToTicketSearch() {
     this.router.navigate(['/ticketsearch']);
   }

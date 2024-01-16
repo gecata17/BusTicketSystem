@@ -18,5 +18,6 @@ public interface UserService
 
     List<User> getAllUsers();
 
+    User updateUser(User updatedUser,String username);
     void deleteByUsername(String username);
 }

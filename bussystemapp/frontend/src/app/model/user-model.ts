@@ -10,9 +10,9 @@ export class User{
 
     constructor(
         username:string,
-        password: string,
         email:string,
-        tickets:Ticket[]
+        password: string = "",
+        tickets:Ticket[] = []
     ){
         this.username=username;
         this.password=password;

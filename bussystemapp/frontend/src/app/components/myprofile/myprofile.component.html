@@ -35,12 +35,9 @@
   <div class="row">
     <div class="form-item column">
       <label for="UserPassword" class="left">Password</label>
-      <div class="password-container">
-        <input id="UserPassword" type="{{ hidePassword ? 'password' : 'text' }}" name="UserPassword" [(ngModel)]="user.password" class="required" >
-        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
-          <i class="fas" [ngClass]="{'fa-eye': hidePassword, 'fa-eye-slash': !hidePassword}"></i>
-        </button>
-      </div>
+
+        <input id="UserPassword" type="password" name="UserPassword" [(ngModel)]="user.password" class="required" >
+      
     </div>
   </div>
 
@@ -90,7 +87,8 @@
 
   <div class="row">
     <div class="text-center column">
-      <button type="submit" class="button be-button main-next-button small-12 medium-4 large-3">Save</button>
+      <!-- In your HTML -->
+      <button type="submit" class="button be-button main-next-button small-12 medium-4 large-3" (click)="saveChanges()">Save</button>
       <button id="deleteUserButton" type="button" class="delete-button small-12 medium-4 large-4" (click)="deleteCurrentUser()">Delete User</button>
 
       <!-- Updated button with improved styling -->
