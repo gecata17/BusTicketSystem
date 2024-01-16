@@ -2,6 +2,7 @@ package com.example.bussystemapp.controller;
 
 import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.service.UserService;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +34,16 @@ public class UserController {
         User user= userService.findByUsername(username);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
+
+    @PutMapping("/update/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable("username") String username,@RequestBody User user){
+        try{
+            return new ResponseEntity<>(userService.updateUser(user,username),HttpStatus.OK);
+
+        } catch (EntityExistsException | IllegalArgumentException exception){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
 }

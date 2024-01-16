@@ -3,6 +3,7 @@ package com.example.bussystemapp.service;
 import com.example.bussystemapp.config.UserDetailsImplementation;
 import com.example.bussystemapp.model.User;
 import com.example.bussystemapp.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,22 +24,21 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     private final PasswordEncoder passwordEncoder;
 
 
-
     @Override
-    public void createUser(User user){
+    public void createUser(User user) {
 
-        if(userRepository.existsById(user.getUsername())){
+        if (userRepository.existsById(user.getUsername())) {
             throw new IllegalArgumentException("Username already in use");
         }
-        if(userRepository.findByEmail(user.getEmail()) != null){
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("Email already in use");
         }
 
-       User newUser = new User();
-       newUser.setUsername(user.getUsername());
-       newUser.setEmail(user.getEmail());
-       newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-       userRepository.save(newUser);
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(newUser);
 
     }
 
@@ -58,9 +58,29 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     }
 
     @Override
+    public User updateUser(User updatedUser, String username) {
+
+        if (!username.equals(updatedUser.getUsername()) && userRepository.existsById(updatedUser.getUsername())) {
+            throw new EntityExistsException("Username already in use");
+        }
+
+
+        User existingUser = userRepository.findById(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+
+        existingUser.setEmail(updatedUser.getEmail());
+
+
+        return userRepository.save(existingUser);
+    }
+
+
+    @Override
     public void deleteByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

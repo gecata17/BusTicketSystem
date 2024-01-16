@@ -1,3 +1,6 @@
-<select [(ngModel)]="selectedTown" (ngModelChange)="selectedValueChange.emit($event)">
-  <option *ngFor="let value of townOptions">{{value.title}}</option>
-</select>
+
+<div class="dropdown">
+  <select class="form-select" [(ngModel)]="selectedTown" (ngModelChange)="selectedValueChange.emit($event)">
+    <option *ngFor="let value of townOptions">{{value.title}}</option>
+  </select>
+</div>

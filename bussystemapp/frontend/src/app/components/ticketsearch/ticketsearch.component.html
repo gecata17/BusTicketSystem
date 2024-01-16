@@ -91,12 +91,12 @@
   <!-- Source and Destination Selection on the same row -->
   <div class="row">
     <div class="col-md-6 mb-3">
-      <label for="source">Source:</label>
-      <input type="text" [(ngModel)]="startTown" class="form-control" id="source" placeholder="Enter Source City">
+      <label for="source">Source:  </label>
+      <app-drop-list [(ngModel)]="startTown" (selectedValueChange)="updateStartTown($event)"></app-drop-list>
     </div>
     <div class="col-md-6 mb-3">
       <label for="destination">Destination:</label>
-      <input type="text" [(ngModel)]="endTown" class="form-control" id="destination" placeholder="Enter Destination City">
+      <app-drop-list-end-town [(ngModel)]="endTown" (selectedValueChangeEndTown)="updateEndTown($event)"></app-drop-list-end-town>
     </div>
   </div>
 

@@ -29,4 +29,9 @@ export class UserService {
     return this.http.delete<User>(url);
   }
   
+  updateUser(user:User): Observable<User>{
+    const url = `${this.apiServerUrl}/private/api/users/update/${user.username}`;
+
+    return this.http.put<User>(url,user);
+  }
 }

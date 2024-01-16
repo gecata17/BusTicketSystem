@@ -93,3 +93,20 @@ body {
     }
   }
   
+  /* ticket-search.component.css */
+
+/* ... (previous styles) */
+
+/* Dropdown Styles */
+select {
+  appearance: none;
+  background-color: #f8f9fa; /* Light Grayish Blue */
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 8px;
+  color: #495057; /* Dark Gray */
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/svgs/solid/map-marker-alt.svg');
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  padding-right: 30px; /* Adjust as needed */
+}

@@ -22,6 +22,8 @@ export class TicketsearchComponent {
   tickets:Ticket[]=[];
   trip:Trip[]=[];
   selectedStartTown: any;
+  selectedEndTown: any;
+   
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -29,6 +31,15 @@ export class TicketsearchComponent {
     private ticketSearchService: TicketSearchService,
     private http: HttpClient
   ) {}
+
+  updateStartTown(selectedStartTown: any): void {
+    this.startTown = selectedStartTown;
+  }
+  
+  updateEndTown(selectedEndTown: any): void {
+    this.endTown = selectedEndTown;
+  }
+  
 
   searchTickets(): void {
     console.log('Searching for tickets...');
@@ -47,6 +58,7 @@ export class TicketsearchComponent {
       .subscribe((updatedTickets: Ticket[]) => {
         console.log('All duration and distance calculations completed.');
         this.tickets = updatedTickets;
+       
       });
   }
 
@@ -78,9 +90,7 @@ export class TicketsearchComponent {
     }));
   }
 
-  updateStartTown(selectedStartTown: any): void {
-    this.startTown = selectedStartTown;
-  }
+  
   
   pay(ticketId:number){
      this.router.navigate(["/buyticket", { ticket_id: ticketId }]);
