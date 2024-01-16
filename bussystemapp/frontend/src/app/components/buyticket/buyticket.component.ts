@@ -32,6 +32,7 @@ export class BuyticketComponent {
     private route : ActivatedRoute,
     private fb: FormBuilder
   ) {
+    this.user = new User(this.tokenStorage.getUsername(), "")
     this.ticketId = this.route.snapshot.params["ticket_id"];
     this.paymentForm = this.fb.group({
       // ... other form controls
@@ -46,12 +47,13 @@ export class BuyticketComponent {
     console.log(this.ticketId);
     this.paymentService.validateCard(cardNumber)
     .subscribe((result: any) => {
+      alert("Card is valid. Payment successful.")
         const newTicket = new TicketUpdateRequest(this.tokenStorage.getUsername(), Status.purchased);
         this.ticketService.updateTicket(this.ticketId, newTicket).subscribe(
           data => { console.log(data) },
           err => { console.log(err) }
         );
-      }, (error: any) => alert("Card is invalid.Unsuccesful payment.")
+      }, (error: any) => alert("Card is invalid.Unsuccessful payment.")
     );
   }
 
